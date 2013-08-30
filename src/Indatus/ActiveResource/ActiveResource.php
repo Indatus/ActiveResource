@@ -14,13 +14,6 @@ class ActiveResource
 {
 
     /**
-     * Request used to interact with remote API
-     * 
-     * @var Guzzle\Http\Message\RequestInterface
-     */
-    protected $request;
-
-    /**
      * Protocol + host of base URI to remote API
      * i.e. http://example.com
      * 
@@ -44,6 +37,30 @@ class ActiveResource
      * @var string
      */
     protected static  $uri;
+
+    /**
+     * Property to hold the data about entities for which this
+     * resource is nested beneath.  For example if this entity was
+     * 'Employee' which was a nested resource under a 'Company' and 
+     * the instance URI should be /companies/:company_id/employees/:id 
+     * then you would assign this string with 'Company:company_id'.
+     * Doing this will allow you to pass in ':company_id' as an option
+     * to the URI creation functions and ':company_id' will be replaced
+     * with the value passed.  
+     *
+     * Alternativley you could set the value to something like 'Company:100'.
+     * You could do this before a call like:
+     *
+     * <code>
+     * Employee::$nestedUnder = 'Company:100';
+     * $e = Employee::find(1);
+     *
+     * //this would hit /companies/100/employees/1
+     * </code>
+     * 
+     * @var string
+     */
+    public static $nestedUnder;
 
     /**
      * Username for remote API authentication if required
@@ -254,7 +271,7 @@ class ActiveResource
      * @return  
      */
     protected static function createRequest($baseUri, $path, $http_method='GET', $requestHeaders=array())
-    {
+    {   
         $client = new Client($baseUri);
 
         if (in_array(strtolower($http_method), array('get', 'put', 'post', 'patch', 'delete', 'head'))){
@@ -312,9 +329,9 @@ class ActiveResource
      */
     private static function getURI()
     {
-        if (isset(self::$uri)){
+        if (isset(static::$uri)){
 
-            return self::$uri;
+            return static::$uri;
 
         } else {
             $uri = Inflector::pluralize(
@@ -322,6 +339,28 @@ class ActiveResource
                     self::getResourceName()
                 )
             );
+
+            $uriResult = array();
+            if (!empty(static::$nestedUnder)){
+
+                $nesting = array_map(function($item){
+                    return explode(':', trim($item));
+                }, explode(',', static::$nestedUnder));
+
+
+                foreach ($nesting as $nest){
+
+                    list($klass, $entityIdSegment) = $nest;
+                    if (!is_numeric($entityIdSegment)) $entityIdSegment = ":$entityIdSegment";
+
+                    $entityTypeSegment = Inflector::pluralize(Inflector::tableize($klass));
+                    $uriResult[] = $entityTypeSegment;
+                    $uriResult[] = $entityIdSegment;
+                
+                    $uri = implode("/", $uriResult) . "/$uri";
+                }
+            }
+
             return "/$uri";
         }
     }
@@ -338,6 +377,9 @@ class ActiveResource
     protected static function getCollectionUri($options=array())
     {
         $uri = self::getUri();
+        foreach ($options as $key => $value){
+            $uri = str_replace($key, $value, $uri);
+        }
         return $uri;
     }
 
