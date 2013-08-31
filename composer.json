@@ -20,7 +20,6 @@
         "doctrine/inflector": "1.0.*@dev"
     },
     "require-dev": {
-        "codeception/aspect-mock": "dev-master"
     },
     "autoload": {
         "psr-0": {
