@@ -61,9 +61,16 @@ class ActiveResourceCollection implements \Iterator {
     return (empty($this->collection) ? null : $this->collection[count($this->collection)-1]);
   }
 
+  function toArray(){
+    $entities = array();
+    foreach ($this->collection as $entity){
+      $entities[] = $entity->attributes;
+    }
+    return array_merge(array('collection' => $entities), array('meta' => $this->metaData));
+  }
+
   function toJson(){
-    $data = array_merge(array('collection' => $this->collection), array('meta' => $this->metaData));
-    return json_encode($data);
+    return json_encode($this->toArray());
   }
 
 }//end class

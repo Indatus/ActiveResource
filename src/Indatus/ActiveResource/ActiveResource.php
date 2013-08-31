@@ -196,6 +196,14 @@ class ActiveResource
      */
     private $errors = array();
 
+    /**
+     * Comma separated list of properties that can't
+     * be set via mass assignment
+     * 
+     * @var string
+     */
+    protected $guarded = "";
+
 
 
 
@@ -248,6 +256,38 @@ class ActiveResource
 
 
     /**
+     * Function to update an Entitie's attributes without
+     * saving.
+     * 
+     * @param  array  $attrs key value array of attributes to update
+     * @return void
+     */
+    public function updateAttributes($attrs=array())
+    {
+        $this->inflateFromArray($attrs);
+    }
+
+
+    /**
+     * Function to return an array of properties that should not
+     * be set via mass assignment
+     * 
+     * @return array
+     */
+    protected function getGuardedAttributes()
+    {
+        $attrs = array_map('trim', explode(',', $this->guarded));
+
+        //the identityProperty should always be guarded
+        if (!in_array($this->identityProperty, $attrs)){
+            $attrs[] = $this->identityProperty;
+        }
+
+        return $attrs;
+    }
+
+
+    /**
      * Function to inflate an instance's properties from an 
      * array of keys and values
      * 
@@ -256,8 +296,12 @@ class ActiveResource
      */
     public function inflateFromArray($attributes=array())
     {
-        foreach ($attributes as $property => $value){
-            $this->{$property} = $value;
+        $guarded = $this->getGuardedAttributes();
+
+        foreach($attributes as $property => $value){
+            if (!in_array($property, $guarded)){
+                $this->{$property} = $value;
+            }
         }
     }
 
