@@ -229,7 +229,7 @@ class ActiveResource
             if (array_key_exists($key, $this->properties)){
                 return $this->properties[$key];
             }
-
+            return null; //catch all
         }
     }
 
@@ -306,15 +306,15 @@ class ActiveResource
      */
     private static function getResourceName()
     {
-        if (isset(self::$resourceName)){ 
+        if (isset(static::$resourceName)){ 
 
-            return self::$resourceName;
+            return static::$resourceName;
 
         } else {
 
             $full_class_arr = explode("\\", get_called_class());
             $klass = end($full_class_arr);
-            self::$resourceName = $klass;
+            static::$resourceName = $klass;
             return $klass;
         }
     }
@@ -627,11 +627,28 @@ class ActiveResource
      */
     public static function find($id)
     {
+        $instance = null;
+
         $request = self::createRequest(static::$baseUri, 
             self::getInstanceUri(array(':id' => $id)), 'GET');
 
+        //handle error saving
+        $request->getEventDispatcher()->addListener('request.error', function(\Guzzle\Common\Event $event) {
+
+            if ($event['response']->getStatusCode() == 404) {
+
+                // Stop other events from firing
+                $event->stopPropagation();
+
+                //not found
+                $instance = false;
+            }
+        });
+
         //send the request
         $response = self::sendRequest($request);
+
+        if ($response->getStatusCode() == 404 || $instance === false) return null;
 
         $data = self::parseResponseToData($response);
         $klass = self::getResourceName();
