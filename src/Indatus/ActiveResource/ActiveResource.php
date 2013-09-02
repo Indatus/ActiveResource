@@ -597,18 +597,23 @@ class ActiveResource
      * @param  string $logicalOperator The operator for joining the filter conditions (AND | OR)
      * @param  string $orderBy         The property name results shoudl be ordered by
      * @param  string $orderDir        The direction for ordering results (ASC | DESC)
+     * @param  array  $getParams       Array of additional querystrig / GET parameters
      * @return \Indatus\ActiveResource\ActiveResourceCollection
      */
     public static function findAll($findConditions=array(), $logicalOperator=null, 
-        $orderBy=null, $orderDir=null)
+        $orderBy=null, $orderDir=null, $getParams=array())
     {
         //send the request
         $request = self::createRequest(static::$baseUri, self::getCollectionUri(), 'GET');
 
         //add in request params
-        if (!empty($findConditions)){
+        if (!empty($findConditions) || !empty($getParams)){
 
             $query = $request->getQuery();
+
+            foreach ($getParams as $param => $val){
+                $query->add($param, $val);
+            }
 
             $conditionCounter = 0;
             foreach ($findConditions as $condition) {
