@@ -708,7 +708,7 @@ class ActiveResource
      * 
      * @return instanceId | false
      */
-    private function getId()
+    public function getId()
     {
         if (array_key_exists(self::$identityProperty, $this->properties)){
             return $this->properties[self::$identityProperty];
