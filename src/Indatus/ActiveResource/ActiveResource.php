@@ -758,7 +758,7 @@ class ActiveResource
             self::getCreateUri(), 
             'POST');
 
-        //handle error saving
+        //handle error saving & any errors given
         $request->getEventDispatcher()->addListener('request.error', function(\Guzzle\Common\Event $event) {
 
             if ($event['response']->getStatusCode() == 422) {
@@ -786,6 +786,16 @@ class ActiveResource
         //send the request
         $response = self::sendRequest($request);
 
+        //handle clean response with errors
+        if ($response->getStatusCode() == 422){
+            //get the errors and set them
+            $result = self::parseResponseStringToObject($response->getBody(true));
+            if(property_exists($result, 'errors')){
+                $this->errors = $result->errors;
+            }
+            return false;
+        }//end if
+
         //get the response and inflate from that
         $data = self::parseResponseToData($response);
         $this->inflateFromArray($data);
@@ -807,7 +817,7 @@ class ActiveResource
             self::getUpdateUri(array(':'.self::$identityProperty => $this->getId())), 
             'PATCH');
 
-        //handle error saving
+        //handle error saving & any errors given
         $request->getEventDispatcher()->addListener('request.error', function(\Guzzle\Common\Event $event) {
 
             if ($event['response']->getStatusCode() == 422) {
@@ -834,6 +844,17 @@ class ActiveResource
 
         //send the request
         $response = self::sendRequest($request);
+
+        //handle clean response with errors
+        if ($response->getStatusCode() == 422){
+            //get the errors and set them
+            $result = self::parseResponseStringToObject($response->getBody(true));
+            if(property_exists($result, 'errors')){
+                $this->errors = $result->errors;
+            }
+            return false;
+        }//end if
+
 
         //get the response and inflate from that
         $result = self::parseResponseToData($response);
