@@ -14,6 +14,15 @@ class ActiveResource
 {
 
     /**
+     * Post parameter to set with a string that
+     * contains the HTTP method type sent with a POST
+     * request rather than sending the true method.
+     * 
+     * @var string
+     */
+    protected static $httpMethodParam = null;
+
+    /**
      * Protocol + host of base URI to remote API
      * i.e. http://example.com
      * 
@@ -325,7 +334,14 @@ class ActiveResource
             throw new Exception("Invalid HTTP method");
         }
 
-        $request = $client->{$method}($path);
+        if (static::$httpMethodParam){
+            if (in_array($method, array('put', 'post', 'patch', 'delete'))){
+                $request = $client->post($path);
+                $request->setPostField(static::$httpMethodParam, strtoupper($method));
+            }
+        } else {
+            $request = $client->{$method}($path);
+        }
 
         if (isset(self::$authUser) && isset(self::$authPass)){
             $request->setAuth(self::$authUser, self::$authPass);
@@ -785,7 +801,7 @@ class ActiveResource
 
         //set the property attributes
         foreach ($this->properties as $key => $value) {
-            $request->addPostField($key, $value);
+            $request->setPostField($key, $value);
         }
 
         //send the request
@@ -841,10 +857,9 @@ class ActiveResource
             }
         });
 
-        //set the properties in the request
-        $query = $request->getQuery();
-        foreach ($this->properties as $k => $v) {
-            $query->add($k, $v);
+        //set the property attributes
+        foreach ($this->properties as $key => $value) {
+            $request->setPostField($key, $value);
         }
 
         //send the request
