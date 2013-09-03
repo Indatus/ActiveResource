@@ -28,7 +28,7 @@ class ActiveResource
      * 
      * @var string
      */
-    protected static $baseUri;
+    public static $baseUri;
 
     /**
      * Property to overwrite the ActiveResource::getResourceName()
