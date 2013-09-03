@@ -213,6 +213,15 @@ class ActiveResource
      */
     protected $guarded = "";
 
+    /**
+     * Comma separated list of properties that will take
+     * a file path that should be read in and sent
+     * with any API request
+     * 
+     * @var string
+     */
+    protected static $fileFields = "";
+
 
 
 
@@ -297,6 +306,19 @@ class ActiveResource
 
 
     /**
+     * Function to return an array of properties that will
+     * accept a file path
+     * 
+     * @return array
+     */
+    protected static function getFileFields()
+    {
+        $attrs = array_map('trim', explode(',', static::$fileFields));
+        return array_filter($attrs);
+    }
+
+
+    /**
      * Function to inflate an instance's properties from an 
      * array of keys and values
      * 
@@ -309,7 +331,12 @@ class ActiveResource
 
         foreach($attributes as $property => $value){
             if (!in_array($property, $guarded)){
-                $this->{$property} = $value;
+
+                //file fields can't be mass assigned
+                if(!in_array($property, self::getFileFields())){
+                    $this->properties[$property] = $value;
+                }
+
             }
         }
     }
@@ -334,11 +361,9 @@ class ActiveResource
             throw new Exception("Invalid HTTP method");
         }
 
-        if (static::$httpMethodParam){
-            if (in_array($method, array('put', 'post', 'patch', 'delete'))){
-                $request = $client->post($path);
-                $request->setPostField(static::$httpMethodParam, strtoupper($method));
-            }
+        if (static::$httpMethodParam != null && in_array($method, array('put', 'post', 'patch', 'delete'))){
+            $request = $client->post($path);
+            $request->setPostField(static::$httpMethodParam, strtoupper($method));
         } else {
             $request = $client->{$method}($path);
         }
@@ -801,7 +826,11 @@ class ActiveResource
 
         //set the property attributes
         foreach ($this->properties as $key => $value) {
-            $request->setPostField($key, $value);
+            if (in_array($key, self::getFileFields())){
+                $request->addPostFile($key, $value);
+            } else {
+                $request->setPostField($key, $value);
+            }
         }
 
         //send the request
@@ -859,7 +888,11 @@ class ActiveResource
 
         //set the property attributes
         foreach ($this->properties as $key => $value) {
-            $request->setPostField($key, $value);
+            if (in_array($key, self::getFileFields())){
+                $request->addPostFile($key, $value);
+            } else {
+                $request->setPostField($key, $value);
+            }
         }
 
         //send the request
