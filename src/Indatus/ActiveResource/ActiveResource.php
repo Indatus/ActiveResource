@@ -36,7 +36,7 @@ class ActiveResource
      * 
      * @var string
      */
-    protected static  $resourceName;
+    protected static $resourceName;
 
     /**
      * Property to overwrite the ActiveResource::getURI()
@@ -45,7 +45,7 @@ class ActiveResource
      * 
      * @var string
      */
-    protected static  $uri;
+    protected static $uri;
 
     /**
      * Property to hold the data about entities for which this
@@ -256,7 +256,7 @@ class ActiveResource
      * 
      * @param array $attributes Associative array of property names and values
      */
-    public function __construct($attributes=array())
+    public function __construct($attributes = array())
     {
         $this->inflateFromArray($attributes);
 
@@ -271,13 +271,13 @@ class ActiveResource
      */
     public function __get($key)
     {
-        if ($key === 'attributes'){
+        if ($key === 'attributes') {
 
             return $this->properties;
 
         } else {
 
-            if (array_key_exists($key, $this->properties)){
+            if (array_key_exists($key, $this->properties)) {
                 return $this->properties[$key];
             }
             return null; //catch all
@@ -295,11 +295,11 @@ class ActiveResource
     public function __set($property, $value)
     {
         //if property contains '_base64'
-        if (!(stripos($property, '_base64') === false)){
+        if (!(stripos($property, '_base64') === false)) {
 
             //if the property IS a file field
             $fileProperty = str_replace('_base64', '', $property);
-            if (in_array($fileProperty, self::getFileFields())){
+            if (in_array($fileProperty, self::getFileFields())) {
                 $this->handleBase64File($fileProperty, $value);
             }//end if file field
 
@@ -318,7 +318,7 @@ class ActiveResource
      * @param  array  $attrs key value array of attributes to update
      * @return void
      */
-    public function updateAttributes($attrs=array())
+    public function updateAttributes($attrs = array())
     {
         $this->inflateFromArray($attrs);
     }
@@ -335,7 +335,7 @@ class ActiveResource
         $attrs = array_map('trim', explode(',', $this->guarded));
 
         //the identityProperty should always be guarded
-        if (!in_array($this->identityProperty, $attrs)){
+        if (!in_array($this->identityProperty, $attrs)) {
             $attrs[] = $this->identityProperty;
         }
 
@@ -363,27 +363,27 @@ class ActiveResource
      * @param  array  $attributes   Associative array of properties and values
      * @return void
      */
-    public function inflateFromArray($attributes=array())
+    public function inflateFromArray($attributes = array())
     {
         $guarded = $this->getGuardedAttributes();
 
-        foreach($attributes as $property => $value){
-            if (!in_array($property, $guarded)){
+        foreach ($attributes as $property => $value) {
+            if (!in_array($property, $guarded)) {
 
                 
                 //if property contains '_base64'
-                if (!(stripos($property, '_base64') === false)){
+                if (!(stripos($property, '_base64') === false)) {
 
                     //if the property IS a file field
                     $fileProperty = str_replace('_base64', '', $property);
-                    if (in_array($fileProperty, self::getFileFields())){
+                    if (in_array($fileProperty, self::getFileFields())) {
                         $this->handleBase64File($fileProperty, $value);
                     }//end if file field
 
                 } else {
 
                     //handle as normal property, but file fields can't be mass assigned
-                    if (!in_array($property, self::getFileFields())){
+                    if (!in_array($property, self::getFileFields())) {
                         $this->properties[$property] = $value;
                     }
                 }
@@ -408,8 +408,11 @@ class ActiveResource
         $imgData = getimagesizefromstring($image);
         $mimeExp = explode("/", $imgData['mime']);
         $ext = end($mimeExp);
-        $output_file = implode(DIRECTORY_SEPARATOR ,array(static::$scratchDiskLocation, uniqid("tmp_{$property}_").".$ext"));
-        $f = fopen($output_file, "wb"); 
+        $output_file = implode(
+            DIRECTORY_SEPARATOR,
+            array(static::$scratchDiskLocation, uniqid("tmp_{$property}_").".$ext")
+        );
+        $f = fopen($output_file, "wb");
         fwrite($f, $image);
         fclose($f);
 
@@ -426,9 +429,9 @@ class ActiveResource
      */
     protected function doPostRequestCleanUp()
     {
-        while(count($this->postRequestCleanUp) > 0){
+        while (count($this->postRequestCleanUp) > 0) {
             $f = array_pop($this->postRequestCleanUp);
-            if (file_exists($f)){
+            if (file_exists($f)) {
                 unlink($f);
             }
         }
@@ -443,29 +446,29 @@ class ActiveResource
      * @param  array  $requestHeaders Any additional headers for the request
      * @return  
      */
-    protected static function createRequest($baseUri, $path, $http_method='GET', $requestHeaders=array())
-    {   
+    protected static function createRequest($baseUri, $path, $http_method = 'GET', $requestHeaders = array())
+    {
         $client = new Client($baseUri);
 
-        if (in_array(strtolower($http_method), array('get', 'put', 'post', 'patch', 'delete', 'head'))){
+        if (in_array(strtolower($http_method), array('get', 'put', 'post', 'patch', 'delete', 'head'))) {
             $method = strtolower($http_method);
             $method = $method == 'patch' ? 'put' : $method; //override patch calls with put
         } else {
             throw new Exception("Invalid HTTP method");
         }
 
-        if (static::$httpMethodParam != null && in_array($method, array('put', 'post', 'patch', 'delete'))){
+        if (static::$httpMethodParam != null && in_array($method, array('put', 'post', 'patch', 'delete'))) {
             $request = $client->post($path);
             $request->setPostField(static::$httpMethodParam, strtoupper($method));
         } else {
             $request = $client->{$method}($path);
         }
 
-        if (isset(self::$authUser) && isset(self::$authPass)){
+        if (isset(self::$authUser) && isset(self::$authPass)) {
             $request->setAuth(self::$authUser, self::$authPass);
         }
 
-        foreach ($requestHeaders as $header => $value){
+        foreach ($requestHeaders as $header => $value) {
             $request->setHeader($header, $value);
         }
 
@@ -484,7 +487,7 @@ class ActiveResource
      */
     private static function getResourceName()
     {
-        if (isset(static::$resourceName)){ 
+        if (isset(static::$resourceName)) {
 
             return static::$resourceName;
 
@@ -507,7 +510,7 @@ class ActiveResource
      */
     private static function getURI()
     {
-        if (isset(static::$uri)){
+        if (isset(static::$uri)) {
 
             return static::$uri;
 
@@ -519,17 +522,22 @@ class ActiveResource
             );
 
             $uriResult = array();
-            if (!empty(static::$nestedUnder)){
+            if (!empty(static::$nestedUnder)) {
 
-                $nesting = array_map(function($item){
-                    return explode(':', trim($item));
-                }, explode(',', static::$nestedUnder));
+                $nesting = array_map(
+                    function ($item) {
+                        return explode(':', trim($item));
+                    },
+                    explode(',', static::$nestedUnder)
+                );
 
 
-                foreach ($nesting as $nest){
+                foreach ($nesting as $nest) {
 
                     list($klass, $entityIdSegment) = $nest;
-                    if (!is_numeric($entityIdSegment)) $entityIdSegment = ":$entityIdSegment";
+                    if (!is_numeric($entityIdSegment)) {
+                        $entityIdSegment = ":$entityIdSegment";
+                    }
 
                     $entityTypeSegment = Inflector::pluralize(Inflector::tableize($klass));
                     $uriResult[] = $entityTypeSegment;
@@ -552,10 +560,10 @@ class ActiveResource
      * @param  $options Array of options to replace placeholders with
      * @return string
      */
-    protected static function getCollectionUri($options=array())
+    protected static function getCollectionUri($options = array())
     {
         $uri = self::getUri();
-        foreach ($options as $key => $value){
+        foreach ($options as $key => $value) {
             $uri = str_replace($key, $value, $uri);
         }
         return $uri;
@@ -570,10 +578,10 @@ class ActiveResource
      * @param  $options Array of options to replace placeholders with
      * @return string
      */
-    protected static function getInstanceUri($options=array())
+    protected static function getInstanceUri($options = array())
     {
         $uri = implode("/", array(self::getUri(), ':id'));
-        foreach ($options as $key => $value){
+        foreach ($options as $key => $value) {
             $uri = str_replace($key, $value, $uri);
         }
         return $uri;
@@ -588,7 +596,7 @@ class ActiveResource
      * @param  $options Array of options to replace placeholders with
      * @return string
      */
-    protected static function getCreateUri($options=array())
+    protected static function getCreateUri($options = array())
     {
         return self::getCollectionUri($options);
     }
@@ -602,7 +610,7 @@ class ActiveResource
      * @param  $options Array of options to replace placeholders with
      * @return string
      */
-    protected static function getUpdateUri($options=array())
+    protected static function getUpdateUri($options = array())
     {
         return self::getInstanceUri($options);
     }
@@ -616,7 +624,7 @@ class ActiveResource
      * @param  $options Array of options to replace placeholders with
      * @return string
      */
-    protected static function getDeleteUri($options=array())
+    protected static function getDeleteUri($options = array())
     {
         return self::getInstanceUri($options);
     }
@@ -699,20 +707,23 @@ class ActiveResource
      */
     private static function sendRequest($request)
     {
-        $request->getEventDispatcher()->addListener('request.error', function(\Guzzle\Common\Event $event) {
+        $request->getEventDispatcher()->addListener(
+            'request.error',
+            function (\Guzzle\Common\Event $event) {
 
-            if ($event['response']->getStatusCode() == 500) {
+                if ($event['response']->getStatusCode() == 500) {
 
-                // Stop other events from firing
-                $event->stopPropagation();
+                    // Stop other events from firing
+                    $event->stopPropagation();
 
-                echo 'Oh no: ' . $event['response']->getMessage() ."\n\n\n";
-                echo 'HTTP request URL: ' . $event['response']->getEffectiveUrl() . "\n\n\n";
-                echo 'HTTP response status: ' . $event['response']->getStatusCode() . "\n\n\n";
-                echo 'HTTP response: ' . $event['response'] . "\n\n\n";
-                exit;
+                    echo 'Oh no: ' . $event['response']->getMessage() ."\n\n\n";
+                    echo 'HTTP request URL: ' . $event['response']->getEffectiveUrl() . "\n\n\n";
+                    echo 'HTTP response status: ' . $event['response']->getStatusCode() . "\n\n\n";
+                    echo 'HTTP response: ' . $event['response'] . "\n\n\n";
+                    exit;
+                }
             }
-        });
+        );
         return $response = $request->send();
 
     }
@@ -731,10 +742,10 @@ class ActiveResource
 
         //set the property attributes
         foreach ($this->properties as $key => $value) {
-            if (in_array($key, self::getFileFields())){
+            if (in_array($key, self::getFileFields())) {
                 $request->addPostFile($key, $value);
             } else {
-                if (!in_array($key, $cantSet)){
+                if (!in_array($key, $cantSet)) {
                     $request->setPostField($key, $value);
                 }
             }
@@ -773,18 +784,22 @@ class ActiveResource
      * @param  array  $getParams       Array of additional querystrig / GET parameters
      * @return \Indatus\ActiveResource\ActiveResourceCollection
      */
-    public static function findAll($findConditions=array(), $logicalOperator=null, 
-        $orderBy=null, $orderDir=null, $getParams=array())
-    {
+    public static function findAll(
+        $findConditions = array(),
+        $logicalOperator = null,
+        $orderBy = null,
+        $orderDir = null,
+        $getParams = array()
+    ) {
         //send the request
         $request = self::createRequest(static::$baseUri, self::getCollectionUri(), 'GET');
 
         //add in request params
-        if (!empty($findConditions) || !empty($getParams)){
+        if (!empty($findConditions) || !empty($getParams)) {
 
             $query = $request->getQuery();
 
-            foreach ($getParams as $param => $val){
+            foreach ($getParams as $param => $val) {
                 $query->add($param, $val);
             }
 
@@ -792,15 +807,15 @@ class ActiveResource
             foreach ($findConditions as $condition) {
 
                 $query->add(
-                    self::$searchParameter."[$conditionCounter][".self::$searchProperty."]", 
+                    self::$searchParameter."[$conditionCounter][".self::$searchProperty."]",
                     $condition[self::$searchProperty]
                 );
                 $query->add(
-                    self::$searchParameter."[$conditionCounter][".self::$searchOperator."]", 
+                    self::$searchParameter."[$conditionCounter][".self::$searchOperator."]",
                     $condition[self::$searchOperator]
                 );
                 $query->add(
-                    self::$searchParameter."[$conditionCounter][".self::$searchValue."]", 
+                    self::$searchParameter."[$conditionCounter][".self::$searchValue."]",
                     $condition[self::$searchValue]
                 );
 
@@ -808,14 +823,17 @@ class ActiveResource
 
             }//end foreach $findConditions
 
-            if ($logicalOperator != null) 
+            if ($logicalOperator != null) {
                 $query->add(self::$logicalOperator, $logicalOperator);
+            }
 
-            if ($orderBy != null) 
+            if ($orderBy != null) {
                 $query->add(self::$logicalOperator, $orderBy);
+            }
 
-            if ($orderDir != null) 
+            if ($orderDir != null) {
                 $query->add(self::$orderDir, $orderDir);
+            }
 
         }//end if
         
@@ -835,7 +853,7 @@ class ActiveResource
         $collection = new ActiveResourceCollection($records);
 
         //add in the meta data that also gets returned
-        $collection->metaData = array_diff_key($data, array_flip((array) array(self::$collectionKey))); 
+        $collection->metaData = array_diff_key($data, array_flip((array) array(self::$collectionKey)));
 
         return $collection;
     }
@@ -851,26 +869,34 @@ class ActiveResource
     {
         $instance = null;
 
-        $request = self::createRequest(static::$baseUri, 
-            self::getInstanceUri(array(':id' => $id)), 'GET');
+        $request = self::createRequest(
+            static::$baseUri,
+            self::getInstanceUri(array(':id' => $id)),
+            'GET'
+        );
 
         //handle error saving
-        $request->getEventDispatcher()->addListener('request.error', function(\Guzzle\Common\Event $event) {
+        $request->getEventDispatcher()->addListener(
+            'request.error',
+            function (\Guzzle\Common\Event $event) {
 
-            if ($event['response']->getStatusCode() == 404) {
+                if ($event['response']->getStatusCode() == 404) {
 
-                // Stop other events from firing
-                $event->stopPropagation();
+                    // Stop other events from firing
+                    $event->stopPropagation();
 
-                //not found
-                $instance = false;
+                    //not found
+                    $instance = false;
+                }
             }
-        });
+        );
 
         //send the request
         $response = self::sendRequest($request);
 
-        if ($response->getStatusCode() == 404 || $instance === false) return null;
+        if ($response->getStatusCode() == 404 || $instance === false) {
+            return null;
+        }
 
         $data = self::parseResponseToData($response);
         $klass = self::getResourceName();
@@ -888,7 +914,7 @@ class ActiveResource
      */
     public function getId()
     {
-        if (array_key_exists(self::$identityProperty, $this->properties)){
+        if (array_key_exists(self::$identityProperty, $this->properties)) {
             return $this->properties[self::$identityProperty];
         } else {
             return false;
@@ -916,7 +942,7 @@ class ActiveResource
      */
     public function save()
     {
-        if ($this->getId() === false){
+        if ($this->getId() === false) {
             return $this->create();
         } else {
             return $this->update();
@@ -932,29 +958,33 @@ class ActiveResource
     protected function create()
     {
         $request = self::createRequest(
-            static::$baseUri, 
-            self::getCreateUri(), 
-            'POST');
+            static::$baseUri,
+            self::getCreateUri(),
+            'POST'
+        );
 
         //handle error saving & any errors given
-        $request->getEventDispatcher()->addListener('request.error', function(\Guzzle\Common\Event $event) {
+        $request->getEventDispatcher()->addListener(
+            'request.error',
+            function (\Guzzle\Common\Event $event) {
 
-            if ($event['response']->getStatusCode() == 422) {
+                if ($event['response']->getStatusCode() == 422) {
 
-                // Stop other events from firing
-                $event->stopPropagation();
+                    // Stop other events from firing
+                    $event->stopPropagation();
 
-                //get the errors and set them
-                $response = self::parseResponseStringToObject($event['response']->getBody(true));
-                if(property_exists($response, 'errors')){
-                    $this->errors = $response->errors;
+                    //get the errors and set them
+                    $response = self::parseResponseStringToObject($event['response']->getBody(true));
+                    if (property_exists($response, 'errors')) {
+                        $this->errors = $response->errors;
+                    }
+
+                    //return false create save failed
+                    $this->doPostRequestCleanUp();
+                    return false;
                 }
-
-                //return false create save failed
-                $this->doPostRequestCleanUp();
-                return false;
             }
-        });
+        );
 
 
         //set the property attributes
@@ -964,10 +994,10 @@ class ActiveResource
         $response = self::sendRequest($request);
 
         //handle clean response with errors
-        if ($response->getStatusCode() == 422){
+        if ($response->getStatusCode() == 422) {
             //get the errors and set them
             $result = self::parseResponseStringToObject($response->getBody(true));
-            if(property_exists($result, 'errors')){
+            if (property_exists($result, 'errors')) {
                 $this->errors = $result->errors;
             }
             $this->doPostRequestCleanUp();
@@ -992,29 +1022,33 @@ class ActiveResource
     protected function update()
     {
         $request = self::createRequest(
-            static::$baseUri, 
-            self::getUpdateUri(array(':'.self::$identityProperty => $this->getId())), 
-            'PATCH');
+            static::$baseUri,
+            self::getUpdateUri(array(':'.self::$identityProperty => $this->getId())),
+            'PATCH'
+        );
 
         //handle error saving & any errors given
-        $request->getEventDispatcher()->addListener('request.error', function(\Guzzle\Common\Event $event) {
+        $request->getEventDispatcher()->addListener(
+            'request.error',
+            function (\Guzzle\Common\Event $event) {
 
-            if ($event['response']->getStatusCode() == 422) {
+                if ($event['response']->getStatusCode() == 422) {
 
-                // Stop other events from firing
-                $event->stopPropagation();
+                    // Stop other events from firing
+                    $event->stopPropagation();
 
-                //get the errors and set them
-                $response = self::parseResponseStringToObject($event['response']->getBody(true));
-                if(property_exists($response, 'errors')){
-                    $this->errors = $response->errors;
+                    //get the errors and set them
+                    $response = self::parseResponseStringToObject($event['response']->getBody(true));
+                    if (property_exists($response, 'errors')) {
+                        $this->errors = $response->errors;
+                    }
+
+                    //return false create save failed
+                    $this->doPostRequestCleanUp();
+                    return false;
                 }
-
-                //return false create save failed
-                $this->doPostRequestCleanUp();
-                return false;
             }
-        });
+        );
 
         //set the property attributes
         $this->setPropertysOnRequest($request);
@@ -1023,10 +1057,10 @@ class ActiveResource
         $response = self::sendRequest($request);
 
         //handle clean response with errors
-        if ($response->getStatusCode() == 422){
+        if ($response->getStatusCode() == 422) {
             //get the errors and set them
             $result = self::parseResponseStringToObject($response->getBody(true));
-            if(property_exists($result, 'errors')){
+            if (property_exists($result, 'errors')) {
                 $this->errors = $result->errors;
             }
             $this->doPostRequestCleanUp();
@@ -1053,21 +1087,20 @@ class ActiveResource
     public function destroy()
     {
         $request = self::createRequest(
-            static::$baseUri, 
-            self::getDeleteUri(array(':'.self::$identityProperty => $this->getId())), 
-            'DELETE');
+            static::$baseUri,
+            self::getDeleteUri(array(':'.self::$identityProperty => $this->getId())),
+            'DELETE'
+        );
 
         //send the request
         $response = self::sendRequest($request);
 
         $this->doPostRequestCleanUp();
 
-        if ($response->getStatusCode() == 200){
+        if ($response->getStatusCode() == 200) {
             return true;
-        } else{
+        } else {
             return false;
         }
     }//end destroy
-
-
 }//end class
