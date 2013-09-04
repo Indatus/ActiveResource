@@ -223,6 +223,15 @@ class ActiveResource
     protected static $fileFields = "";
 
     /**
+     * Comma separated list of properties that may be in 
+     * a GET request but should not be added to a create or
+     * update request
+     * 
+     * @var string
+     */
+    protected static $readOnlyFields = "";
+
+    /**
      * Array of files that were temporarily written for a request
      * that should be removed after the request is done.
      * 
@@ -686,7 +695,7 @@ class ActiveResource
      * Function to wrap the making of a remote API request
      * 
      * @param  Guzzle\Http\Message\RequestInterface $request API request object
-     * @return uzzle\Http\Message\Response          API Response
+     * @return Guzzle\Http\Message\Response          API Response
      */
     private static function sendRequest($request)
     {
@@ -706,6 +715,30 @@ class ActiveResource
         });
         return $response = $request->send();
 
+    }
+
+
+    /**
+     * Function to set the entities properties on the 
+     * request object taking into account any properties that
+     * are read only etc.
+     * 
+     * @param  Guzzle\Http\Message\RequestInterface $request API request object
+     */
+    protected function setPropertysOnRequest(&$request)
+    {
+        $cantSet = array_map('trim', explode(',', static::$readOnlyFields));
+
+        //set the property attributes
+        foreach ($this->properties as $key => $value) {
+            if (in_array($key, self::getFileFields())){
+                $request->addPostFile($key, $value);
+            } else {
+                if (!in_array($key, $cantSet)){
+                    $request->setPostField($key, $value);
+                }
+            }
+        }
     }
 
 
@@ -925,13 +958,7 @@ class ActiveResource
 
 
         //set the property attributes
-        foreach ($this->properties as $key => $value) {
-            if (in_array($key, self::getFileFields())){
-                $request->addPostFile($key, $value);
-            } else {
-                $request->setPostField($key, $value);
-            }
-        }
+        $this->setPropertysOnRequest($request);
 
         //send the request
         $response = self::sendRequest($request);
@@ -990,13 +1017,7 @@ class ActiveResource
         });
 
         //set the property attributes
-        foreach ($this->properties as $key => $value) {
-            if (in_array($key, self::getFileFields())){
-                $request->addPostFile($key, $value);
-            } else {
-                $request->setPostField($key, $value);
-            }
-        }
+        $this->setPropertysOnRequest($request);
 
         //send the request
         $response = self::sendRequest($request);
