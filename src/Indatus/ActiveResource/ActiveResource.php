@@ -222,6 +222,22 @@ class ActiveResource
      */
     protected static $fileFields = "";
 
+    /**
+     * Array of files that were temporarily written for a request
+     * that should be removed after the request is done.
+     * 
+     * @var array
+     */
+    protected $postRequestCleanUp = array();
+
+    /**
+     * Filesystem location that temporary files could be
+     * written to if needed 
+     * 
+     * @var string
+     */
+    protected static $scratchDiskLocation = "/tmp";
+
 
 
 
@@ -263,14 +279,27 @@ class ActiveResource
     /**
      * Magic setter function for setting instance properties
      * 
-     * @param   string    $key        Property name
+     * @param   string    $property   Property name
      * @param   any       $value      The value to store for the property 
      * @return  void
      */
-    public function __set($key, $value)
+    public function __set($property, $value)
     {
-        $this->properties[$key] = $value;
-    }
+        //if property contains '_base64'
+        if (!(stripos($property, '_base64') === false)){
+
+            //if the property IS a file field
+            $fileProperty = str_replace('_base64', '', $property);
+            if (in_array($fileProperty, self::getFileFields())){
+                $this->handleBase64File($fileProperty, $value);
+            }//end if file field
+
+        } else {
+
+            $this->properties[$property] = $value;
+        }
+
+    }//end __set
 
 
     /**
@@ -332,14 +361,69 @@ class ActiveResource
         foreach($attributes as $property => $value){
             if (!in_array($property, $guarded)){
 
-                //file fields can't be mass assigned
-                if(!in_array($property, self::getFileFields())){
-                    $this->properties[$property] = $value;
+                
+                //if property contains '_base64'
+                if (!(stripos($property, '_base64') === false)){
+
+                    //if the property IS a file field
+                    $fileProperty = str_replace('_base64', '', $property);
+                    if (in_array($fileProperty, self::getFileFields())){
+                        $this->handleBase64File($fileProperty, $value);
+                    }//end if file field
+
+                } else {
+
+                    //handle as normal property, but file fields can't be mass assigned
+                    if (!in_array($property, self::getFileFields())){
+                        $this->properties[$property] = $value;
+                    }
                 }
 
+            }//end if not guarded
+        }//end foreach
+    }//end inflateFromArray
+
+
+    /**
+     * Function to take base64 encoded image and write it to a 
+     * temp file, then add that file to the property list to get
+     * added to a request.
+     * 
+     * @param  string $property Entity attribute
+     * @param  string $value    Base64 encoded string
+     * @return void
+     */
+    protected function handleBase64File($property, $value)
+    {
+        $image = base64_decode($value);
+        $imgData = getimagesizefromstring($image);
+        $mimeExp = explode("/", $imgData['mime']);
+        $ext = end($mimeExp);
+        $output_file = implode(DIRECTORY_SEPARATOR ,array(static::$scratchDiskLocation, uniqid("tmp_{$property}_").".$ext"));
+        $f = fopen($output_file, "wb"); 
+        fwrite($f, $image);
+        fclose($f);
+
+        $this->postRequestCleanUp[] = $output_file;
+        $this->{$property} = $output_file;
+
+    }//end handleBase64File
+
+
+    /**
+     * Function to clean up any temp files written for a request
+     * 
+     * @return void
+     */
+    protected function doPostRequestCleanUp()
+    {
+        while(count($this->postRequestCleanUp) > 0){
+            $f = array_pop($this->postRequestCleanUp);
+            if (file_exists($f)){
+                unlink($f);
             }
         }
-    }
+    }//end cleanUp
 
 
     /**
@@ -606,7 +690,22 @@ class ActiveResource
      */
     private static function sendRequest($request)
     {
+        $request->getEventDispatcher()->addListener('request.error', function(\Guzzle\Common\Event $event) {
+
+            if ($event['response']->getStatusCode() == 500) {
+
+                // Stop other events from firing
+                $event->stopPropagation();
+
+                echo 'Oh no: ' . $event['response']->getMessage() ."\n\n\n";
+                echo 'HTTP request URL: ' . $event['response']->getEffectiveUrl() . "\n\n\n";
+                echo 'HTTP response status: ' . $event['response']->getStatusCode() . "\n\n\n";
+                echo 'HTTP response: ' . $event['response'] . "\n\n\n";
+                exit;
+            }
+        });
         return $response = $request->send();
+
     }
 
 
@@ -819,6 +918,7 @@ class ActiveResource
                 }
 
                 //return false create save failed
+                $this->doPostRequestCleanUp();
                 return false;
             }
         });
@@ -843,6 +943,7 @@ class ActiveResource
             if(property_exists($result, 'errors')){
                 $this->errors = $result->errors;
             }
+            $this->doPostRequestCleanUp();
             return false;
         }//end if
 
@@ -850,6 +951,7 @@ class ActiveResource
         $data = self::parseResponseToData($response);
         $this->inflateFromArray($data);
 
+        $this->doPostRequestCleanUp();
         return true;
     
     }//end create
@@ -882,6 +984,7 @@ class ActiveResource
                 }
 
                 //return false create save failed
+                $this->doPostRequestCleanUp();
                 return false;
             }
         });
@@ -905,6 +1008,7 @@ class ActiveResource
             if(property_exists($result, 'errors')){
                 $this->errors = $result->errors;
             }
+            $this->doPostRequestCleanUp();
             return false;
         }//end if
 
@@ -914,6 +1018,7 @@ class ActiveResource
 
         $this->inflateFromArray($result);
 
+        $this->doPostRequestCleanUp();
         return true;
     
     }//end update
@@ -933,6 +1038,8 @@ class ActiveResource
 
         //send the request
         $response = self::sendRequest($request);
+
+        $this->doPostRequestCleanUp();
 
         if ($response->getStatusCode() == 200){
             return true;
