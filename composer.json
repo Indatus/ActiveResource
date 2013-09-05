@@ -20,6 +20,8 @@
         "doctrine/inflector": "1.0.*@dev"
     },
     "require-dev": {
+        "phpdocumentor/phpdocumentor": "dev-develop",
+        "phpdocumentor/graphviz": "1.0.*@dev"
     },
     "autoload": {
         "psr-0": {

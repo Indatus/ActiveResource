@@ -1,0 +1,2306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Indatus.html">\Indatus</a></li>
+                                                    </ul>
+                    </li>
+                    <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                    <i class="icon-list-alt"></i>&#160;Errors
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                    <i class="icon-list-alt"></i>&#160;Markers
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1410439115"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1410439115" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-453454030"></a>
+                                <a href="../namespaces/Indatus.html" style="margin-left: 30px; padding-left: 0">Indatus</a>
+            </div>
+            <div id="namespace-453454030" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-984129198"></a>
+                                <a href="../namespaces/Indatus.ActiveResource.html" style="margin-left: 30px; padding-left: 0">ActiveResource</a>
+            </div>
+            <div id="namespace-984129198" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-652583243"></a>
+                                <a href="../namespaces/Indatus.ActiveResource.Facades.html" style="margin-left: 30px; padding-left: 0">Facades</a>
+            </div>
+            <div id="namespace-652583243" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Indatus.ActiveResource.Facades.ActiveResource.html">ActiveResource</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Indatus.ActiveResource.ActiveResource.html">ActiveResource</a></li>
+                                                    <li class="class"><a href="../classes/Indatus.ActiveResource.ActiveResourceCollection.html">ActiveResourceCollection</a></li>
+                                                    <li class="class"><a href="../classes/Indatus.ActiveResource.ActiveResourceServiceProvider.html">ActiveResourceServiceProvider</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Indatus.ActiveResource.html">\Indatus\ActiveResource</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Indatus\ActiveResource</small>ActiveResource</h1>
+                    <p><em>Base class for interacting with a remote API with an interface
+that is familiar to the same programming API as Eloquent or more
+specifically Ardent ORM models.</em></p>
+                    
+
+
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method___get" class="">__get()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method___set" class="">__set()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_updateAttributes" class="">updateAttributes()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_inflateFromArray" class="">inflateFromArray()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_findAll" class="">findAll()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_find" class="">find()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_getId" class="">getId()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_errors" class="">errors()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_save" class="">save()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_destroy" class="">destroy()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_baseUri" class="">$baseUri</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_nestedUnder" class="">$nestedUnder</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_searchProperty" class="">$searchProperty</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_searchOperator" class="">$searchOperator</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_searchValue" class="">$searchValue</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_logicalOperator" class="">$logicalOperator</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_orderBy" class="">$orderBy</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_orderDir" class="">$orderDir</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_searchOperatorAnd" class="">$searchOperatorAnd</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_searchOperatorOr" class="">$searchOperatorOr</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_orderDirAsc" class="">$orderDirAsc</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_orderDirDesc" class="">$orderDirDesc</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_getGuardedAttributes" class="">getGuardedAttributes()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_getFileFields" class="">getFileFields()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_handleBase64File" class="">handleBase64File()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_doPostRequestCleanUp" class="">doPostRequestCleanUp()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_createRequest" class="">createRequest()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_getCollectionUri" class="">getCollectionUri()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_getInstanceUri" class="">getInstanceUri()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_getCreateUri" class="">getCreateUri()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_getUpdateUri" class="">getUpdateUri()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_getDeleteUri" class="">getDeleteUri()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_setPropertysOnRequest" class="">setPropertysOnRequest()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_create" class="">create()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_update" class="">update()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_httpMethodParam" class="">$httpMethodParam</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_resourceName" class="">$resourceName</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_uri" class="">$uri</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_authUser" class="">$authUser</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_authPass" class="">$authPass</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_transporter" class="">$transporter</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_properties" class="">$properties</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_collectionKey" class="">$collectionKey</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_searchParameter" class="">$searchParameter</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_identityProperty" class="">$identityProperty</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_guarded" class="">$guarded</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_fileFields" class="">$fileFields</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_readOnlyFields" class="">$readOnlyFields</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_postRequestCleanUp" class="">$postRequestCleanUp</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_scratchDiskLocation" class="">$scratchDiskLocation</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_getResourceName" class="">getResourceName()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_getURI" class="">getURI()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_parseResponseToData" class="">parseResponseToData()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_setTransportLanguage" class="">setTransportLanguage()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_parseResponseStringToObject" class="">parseResponseStringToObject()</a><br />
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#method_sendRequest" class="">sendRequest()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html#property_errors" class="">$errors</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/ActiveResource.php.html"><div class="path-wrapper">ActiveResource.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">\Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\Indatus\ActiveResource\ActiveResource</div>
+                            </dd>
+
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>Brian Webb <a href="&#x6d;&#97;&#105;&#x6c;&#116;&#111;&#x3a;&#x62;&#119;&#x65;&#x62;&#98;&#64;&#x69;&#110;&#100;&#x61;&#x74;&#117;&#x73;&#x2e;&#99;&#111;&#x6d;">&#x62;&#119;&#x65;&#x62;&#98;&#64;&#x69;&#110;&#100;&#x61;&#x74;&#117;&#x73;&#x2e;&#99;&#111;&#x6d;</a></p>
+
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_baseUri" name="property_baseUri" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$baseUri</h3>
+                <pre class="signature">$baseUri : string</pre>
+                <p><em>Protocol + host of base URI to remote API
+i.e. http://example.com</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_nestedUnder" name="property_nestedUnder" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$nestedUnder</h3>
+                <pre class="signature">$nestedUnder : string</pre>
+                <p><em>Property to hold the data about entities for which this
+resource is nested beneath.  For example if this entity was
+&#039;Employee&#039; which was a nested resource under a &#039;Company&#039; and
+the instance URI should be /companies/:company_id/employees/:id
+then you would assign this string with &#039;Company:company_id&#039;.</em></p>
+                <p>Doing this will allow you to pass in ':company_id' as an option
+to the URI creation functions and ':company_id' will be replaced
+with the value passed.</p>
+
+<p>Alternativley you could set the value to something like 'Company:100'.
+You could do this before a call like:</p>
+
+<p><code>
+Employee::$nestedUnder = 'Company:100';
+$e = Employee::find(1);</p>
+
+<p>//this would hit /companies/100/employees/1
+</code></p>
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_searchProperty" name="property_searchProperty" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$searchProperty</h3>
+                <pre class="signature">$searchProperty : string</pre>
+                <p><em>Name of the parameter key used to identify
+an entity property</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_searchOperator" name="property_searchOperator" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$searchOperator</h3>
+                <pre class="signature">$searchOperator : string</pre>
+                <p><em>Name of the parameter key used to specify
+a search rule operator i.e.: = &gt;= &lt;= != LIKE</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_searchValue" name="property_searchValue" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$searchValue</h3>
+                <pre class="signature">$searchValue : string</pre>
+                <p><em>Name of the parameter key used to identify
+an entity value when searching</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_logicalOperator" name="property_logicalOperator" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$logicalOperator</h3>
+                <pre class="signature">$logicalOperator : string</pre>
+                <p><em>Name of the parameter key used to identify
+how search criteria should be joined</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_orderBy" name="property_orderBy" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$orderBy</h3>
+                <pre class="signature">$orderBy : string</pre>
+                <p><em>Name of the parameter key used to identify
+the property to order search results by</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_orderDir" name="property_orderDir" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$orderDir</h3>
+                <pre class="signature">$orderDir : string</pre>
+                <p><em>Name of the parameter key used to identify
+the order direction of search results</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_searchOperatorAnd" name="property_searchOperatorAnd" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$searchOperatorAnd</h3>
+                <pre class="signature">$searchOperatorAnd : string</pre>
+                <p><em>Name of the parameter value for specifying
+&quot;AND&quot; search rule joining</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_searchOperatorOr" name="property_searchOperatorOr" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$searchOperatorOr</h3>
+                <pre class="signature">$searchOperatorOr : string</pre>
+                <p><em>Name of the parameter value for specifying
+&quot;OR&quot; search rule joining</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_orderDirAsc" name="property_orderDirAsc" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$orderDirAsc</h3>
+                <pre class="signature">$orderDirAsc : string</pre>
+                <p><em>Name of the parameter value for specifying
+ascending result ordering</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_orderDirDesc" name="property_orderDirDesc" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$orderDirDesc</h3>
+                <pre class="signature">$orderDirDesc : string</pre>
+                <p><em>Name of the parameter value for specifying
+descending result ordering</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_httpMethodParam" name="property_httpMethodParam" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$httpMethodParam</h3>
+                <pre class="signature">$httpMethodParam : string</pre>
+                <p><em>Post parameter to set with a string that
+contains the HTTP method type sent with a POST
+request rather than sending the true method.</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_resourceName" name="property_resourceName" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$resourceName</h3>
+                <pre class="signature">$resourceName : string</pre>
+                <p><em>Property to overwrite the ActiveResource::getResourceName()
+function with a static value</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_uri" name="property_uri" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$uri</h3>
+                <pre class="signature">$uri : string</pre>
+                <p><em>Property to overwrite the ActiveResource::getURI()
+function with a static value of what remote API URI path
+to hit</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_authUser" name="property_authUser" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$authUser</h3>
+                <pre class="signature">$authUser : string</pre>
+                <p><em>Username for remote API authentication if required</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_authPass" name="property_authPass" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$authPass</h3>
+                <pre class="signature">$authPass : string</pre>
+                <p><em>Password for remote API authentication if required</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_transporter" name="property_transporter" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$transporter</h3>
+                <pre class="signature">$transporter : string</pre>
+                <p><em>Transport method of data from remote API</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_properties" name="property_properties" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$properties</h3>
+                <pre class="signature">$properties : array</pre>
+                <p><em>Array of instance values</em></p>
+                
+
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_collectionKey" name="property_collectionKey" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$collectionKey</h3>
+                <pre class="signature">$collectionKey : string</pre>
+                <p><em>Element name that should contain a collection in a
+response where more than one result is returned</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_searchParameter" name="property_searchParameter" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$searchParameter</h3>
+                <pre class="signature">$searchParameter : string</pre>
+                <p><em>Name of the parameter key used to contain search
+rules for fetching collections</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_identityProperty" name="property_identityProperty" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$identityProperty</h3>
+                <pre class="signature">$identityProperty : string</pre>
+                <p><em>Resource&#039;s primary key property</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_guarded" name="property_guarded" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$guarded</h3>
+                <pre class="signature">$guarded : string</pre>
+                <p><em>Comma separated list of properties that can&#039;t
+be set via mass assignment</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_fileFields" name="property_fileFields" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$fileFields</h3>
+                <pre class="signature">$fileFields : string</pre>
+                <p><em>Comma separated list of properties that will take
+a file path that should be read in and sent
+with any API request</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_readOnlyFields" name="property_readOnlyFields" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$readOnlyFields</h3>
+                <pre class="signature">$readOnlyFields : string</pre>
+                <p><em>Comma separated list of properties that may be in
+a GET request but should not be added to a create or
+update request</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_postRequestCleanUp" name="property_postRequestCleanUp" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$postRequestCleanUp</h3>
+                <pre class="signature">$postRequestCleanUp : array</pre>
+                <p><em>Array of files that were temporarily written for a request
+that should be removed after the request is done.</em></p>
+                
+
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_scratchDiskLocation" name="property_scratchDiskLocation" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$scratchDiskLocation</h3>
+                <pre class="signature">$scratchDiskLocation : string</pre>
+                <p><em>Filesystem location that temporary files could be
+written to if needed</em></p>
+                
+
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_errors" name="property_errors" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$errors</h3>
+                <pre class="signature">$errors : array</pre>
+                <p><em>Var to hold instance errors</em></p>
+                
+
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(array <span class="argument">$attributes</span>)</pre>
+                <p><em>Constructor used to popuplate the instance with
+attribute values</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$attributes</td>
+                                <td><p>Associative array of property names and values</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___get" name="method___get" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__get()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__get(string <span class="argument">$key</span>) : \Indatus\ActiveResource\any</pre>
+                <p><em>Magic getter function for accessing instance properties</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$key</td>
+                                <td><p>Property name</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Indatus\ActiveResource\any
+                                            &mdash; <p>The value stored in the property</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___set" name="method___set" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__set()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__set(string <span class="argument">$property</span>, \Indatus\ActiveResource\any <span class="argument">$value</span>) : void</pre>
+                <p><em>Magic setter function for setting instance properties</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$property</td>
+                                <td><p>Property name</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>\Indatus\ActiveResource\any</td>
+                                <td>$value</td>
+                                <td><p>The value to store for the property</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_updateAttributes" name="method_updateAttributes" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">updateAttributes()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">updateAttributes(array <span class="argument">$attrs</span>) : void</pre>
+                <p><em>Function to update an Entitie&#039;s attributes without
+saving.</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$attrs</td>
+                                <td><p>key value array of attributes to update</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_inflateFromArray" name="method_inflateFromArray" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">inflateFromArray()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">inflateFromArray(array <span class="argument">$attributes</span>) : void</pre>
+                <p><em>Function to inflate an instance&#039;s properties from an
+array of keys and values</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$attributes</td>
+                                <td><p>Associative array of properties and values</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_findAll" name="method_findAll" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">findAll()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">findAll(array <span class="argument">$findConditions</span>, string <span class="argument">$logicalOperator</span>, string <span class="argument">$orderBy</span>, string <span class="argument">$orderDir</span>, array <span class="argument">$getParams</span>) : \Indatus\ActiveResource\ActiveResourceCollection</pre>
+                <p><em>Function to return a collection of remote API data that corresponds to
+the particular ActiveResource class referenced and also conforming to the
+parameters passed in.</em></p>
+                <p><code>
+$results = Company::findAll(
+     array(
+         array(
+             Company::$searchProperty => 'name',
+             Company::$searchOperator => 'LIKE',
+             Company::$searchValue    => 'Jacobs-Goodwin%'
+         )
+     ),
+     Company::$searchOperatorAnd,
+     'name',
+     Company::$orderDirAsc
+ );
+</code></p>
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$findConditions</td>
+                                <td><p>An array of arrays containing conditions regarding
+                                the filtering of the collection results.  Each array
+                                Entry should be associative and contain keys for the
+                                property, operator and value to search by.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$logicalOperator</td>
+                                <td><p>The operator for joining the filter conditions (AND | OR)</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$orderBy</td>
+                                <td><p>The property name results shoudl be ordered by</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$orderDir</td>
+                                <td><p>The direction for ordering results (ASC | DESC)</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$getParams</td>
+                                <td><p>Array of additional querystrig / GET parameters</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Indatus.ActiveResource.ActiveResourceCollection.html">\Indatus\ActiveResource\ActiveResourceCollection</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_find" name="method_find" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">find()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">find(int <span class="argument">$id</span>) : \Indatus\ActiveResource\ActiveResource</pre>
+                <p><em>Function to find an instance of an Entity record</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>int</td>
+                                <td>$id</td>
+                                <td><p>The primary identifier value for the record</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Indatus.ActiveResource.ActiveResource.html">\Indatus\ActiveResource\ActiveResource</a>
+                                            &mdash; <p>An instance of the entity requested</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getId" name="method_getId" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getId()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getId() : \Indatus\ActiveResource\instanceId</pre>
+                <p><em>Function to get the instance ID, returns false if there
+is not one</em></p>
+                
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    \Indatus\ActiveResource\instanceId
+                                            &mdash; <p>| false</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_errors" name="method_errors" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">errors()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">errors() : array</pre>
+                <p><em>Function to return any errors that
+may have prevented a save</em></p>
+                
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_save" name="method_save" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">save()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">save() : Boolean</pre>
+                <p><em>Function to handle creating or updating
+an instance</em></p>
+                
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    Boolean
+                                            &mdash; <p>Success of the save operation</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_destroy" name="method_destroy" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">destroy()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">destroy() : Boolean</pre>
+                <p><em>Function to delete an existing entity</em></p>
+                
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    Boolean
+                                            &mdash; <p>Success of the delete operation</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getGuardedAttributes" name="method_getGuardedAttributes" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getGuardedAttributes()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getGuardedAttributes() : array</pre>
+                <p><em>Function to return an array of properties that should not
+be set via mass assignment</em></p>
+                
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getFileFields" name="method_getFileFields" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getFileFields()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getFileFields() : array</pre>
+                <p><em>Function to return an array of properties that will
+accept a file path</em></p>
+                
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_handleBase64File" name="method_handleBase64File" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">handleBase64File()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">handleBase64File(string <span class="argument">$property</span>, string <span class="argument">$value</span>) : void</pre>
+                <p><em>Function to take base64 encoded image and write it to a
+temp file, then add that file to the property list to get
+added to a request.</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$property</td>
+                                <td><p>Entity attribute</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$value</td>
+                                <td><p>Base64 encoded string</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_doPostRequestCleanUp" name="method_doPostRequestCleanUp" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">doPostRequestCleanUp()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">doPostRequestCleanUp() : void</pre>
+                <p><em>Function to clean up any temp files written for a request</em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_createRequest" name="method_createRequest" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">createRequest()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">createRequest(string <span class="argument">$baseUri</span>, string <span class="argument">$path</span>,  <span class="argument">$http_method</span>, array <span class="argument">$requestHeaders</span>) : </pre>
+                <p><em>Function to create a Guzzle HTTP request</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$baseUri</td>
+                                <td><p>The protocol + host</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$path</td>
+                                <td><p>The URI path after the host</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$http_method</td>
+                                <td>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$requestHeaders</td>
+                                <td><p>Any additional headers for the request</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getCollectionUri" name="method_getCollectionUri" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getCollectionUri()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getCollectionUri(mixed <span class="argument">$options</span>) : string</pre>
+                <p><em>Function to get the URI with placeholders for data
+that a GET request should be made to in order to retreive
+a collection of Entities</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$options</td>
+                                <td><p>Array of options to replace placeholders with</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getInstanceUri" name="method_getInstanceUri" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getInstanceUri()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getInstanceUri(mixed <span class="argument">$options</span>) : string</pre>
+                <p><em>Function to get the URI with placeholders for data
+that a GET request should be made to in order to retreive
+an instance of an Entity</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$options</td>
+                                <td><p>Array of options to replace placeholders with</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getCreateUri" name="method_getCreateUri" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getCreateUri()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getCreateUri(mixed <span class="argument">$options</span>) : string</pre>
+                <p><em>Function to get the URI with placeholders for data
+that a POST request should be made to in order to create
+a new entity.</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$options</td>
+                                <td><p>Array of options to replace placeholders with</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getUpdateUri" name="method_getUpdateUri" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getUpdateUri()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getUpdateUri(mixed <span class="argument">$options</span>) : string</pre>
+                <p><em>Function to get the URI with placeholders for data
+that a PUT / PATCH request should be made to in order to
+update an existing entity.</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$options</td>
+                                <td><p>Array of options to replace placeholders with</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getDeleteUri" name="method_getDeleteUri" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getDeleteUri()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getDeleteUri(mixed <span class="argument">$options</span>) : string</pre>
+                <p><em>Function to get the URI with placeholders for data
+that a DELETE request should be made to in order to delete
+an existing entity.</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$options</td>
+                                <td><p>Array of options to replace placeholders with</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setPropertysOnRequest" name="method_setPropertysOnRequest" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">setPropertysOnRequest()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setPropertysOnRequest(\Indatus\ActiveResource\Guzzle\Http\Message\RequestInterface <span class="argument">$request</span>)</pre>
+                <p><em>Function to set the entities properties on the
+request object taking into account any properties that
+are read only etc.</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\Indatus\ActiveResource\Guzzle\Http\Message\RequestInterface</td>
+                                <td>$request</td>
+                                <td><p>API request object</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_create" name="method_create" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">create()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">create() : Boolean</pre>
+                <p><em>Function to handle the creation of a NEW entity</em></p>
+                
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    Boolean
+                                            &mdash; <p>Success of the create operation</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_update" name="method_update" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">update()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">update() : Boolean</pre>
+                <p><em>Function to handle updating an existing entity</em></p>
+                
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    Boolean
+                                            &mdash; <p>Success of the update opeartion</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getResourceName" name="method_getResourceName" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">getResourceName()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getResourceName() : string</pre>
+                <p><em>Function to interpret the URI resource name based on the class called.</em></p>
+                <p>Generally this would be the name of the class.</p>
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The sub name of the resource</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getURI" name="method_getURI" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">getURI()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getURI() : string</pre>
+                <p><em>Function to return the name of the URI to hit based on
+the interpreted name of the class in question.  For example
+a Person class would resolve to /people</em></p>
+                
+
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The URI to hit</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_parseResponseToData" name="method_parseResponseToData" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">parseResponseToData()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">parseResponseToData(\Indatus\ActiveResource\Guzzle\Http\Message\Response <span class="argument">$response</span>) : array</pre>
+                <p><em>Function to take a response object and convert it
+into an array of data that is ready for use</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\Indatus\ActiveResource\Guzzle\Http\Message\Response</td>
+                                <td>$response</td>
+                                <td><p>Response object from API request</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Parsed array of data</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setTransportLanguage" name="method_setTransportLanguage" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">setTransportLanguage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setTransportLanguage(\Indatus\ActiveResource\Guzzle\Http\Message\RequestInterface <span class="argument">$request</span>)</pre>
+                <p><em>Function to set the language of data transport.  I.e. XML, JSON etc</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\Indatus\ActiveResource\Guzzle\Http\Message\RequestInterface</td>
+                                <td>$request</td>
+                                <td><p>Request to set type for</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_parseResponseStringToObject" name="method_parseResponseStringToObject" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">parseResponseStringToObject()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">parseResponseStringToObject(string <span class="argument">$responseStr</span>) : object</pre>
+                <p><em>Function to take a response string (as a string) and depending on
+the type of string it is, parse it into an object.</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$responseStr</td>
+                                <td><p>Response string</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    object
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_sendRequest" name="method_sendRequest" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">sendRequest()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">sendRequest(\Indatus\ActiveResource\Guzzle\Http\Message\RequestInterface <span class="argument">$request</span>) : \Indatus\ActiveResource\Guzzle\Http\Message\Response</pre>
+                <p><em>Function to wrap the making of a remote API request</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\Indatus\ActiveResource\Guzzle\Http\Message\RequestInterface</td>
+                                <td>$request</td>
+                                <td><p>API request object</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Indatus\ActiveResource\Guzzle\Http\Message\Response
+                                            &mdash; <p>API Response</p>
+
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">ActiveResource.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/ActiveResource.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Indatus.html">\Indatus</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="">Errors</a></li>
+                                    <li><a href="">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on September 5th, 2013 at 19:14.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
