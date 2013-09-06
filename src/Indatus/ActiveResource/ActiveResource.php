@@ -862,10 +862,11 @@ class ActiveResource
     /**
      * Function to find an instance of an Entity record
      * 
-     * @param  int $id          The primary identifier value for the record
-     * @return ActiveResource   An instance of the entity requested
+     * @param  int      $id          The primary identifier value for the record
+     * @param  array    $getParams   Array of GET parameters to pass
+     * @return ActiveResource        An instance of the entity requested
      */
-    public static function find($id)
+    public static function find($id, $getParams = array())
     {
         $instance = null;
 
@@ -890,6 +891,13 @@ class ActiveResource
                 }
             }
         );
+
+        $query = $request->getQuery();
+
+        //add in any GET params
+        foreach ($getParams as $param => $val) {
+            $query->add($param, $val);
+        }
 
         //send the request
         $response = self::sendRequest($request);
