@@ -245,7 +245,7 @@ class ActiveResource
      * 
      * @var string
      */
-    protected static $scratchDiskLocation = "/tmp";
+    public static $scratchDiskLocation = "/tmp";
 
 
 
