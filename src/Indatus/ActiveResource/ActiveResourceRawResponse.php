@@ -57,6 +57,6 @@ class ActiveResourceRawResponse
      */
     public function response()
     {
-        return $this->repsonse;
+        return $this->response;
     }
 }
