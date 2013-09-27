@@ -325,6 +325,17 @@ class ActiveResource
 
 
     /**
+     * Function to return a key value array of the Entity's attributes
+     *         
+     * @return array
+     */
+    public function attributes()
+    {
+        return $this->properties;
+    }
+
+
+    /**
      * Function to return an array of properties that should not
      * be set via mass assignment
      * 
@@ -1111,4 +1122,150 @@ class ActiveResource
             return false;
         }
     }//end destroy
+
+
+
+    /**
+     * Function to execute a raw GET request
+     * 
+     * @param  string $uri       uri to hit (i.e. /users)
+     * @param  array  $params    Querystring parameters to send
+     * @return ActiveResourceRawResponse
+     */
+    public static function rawGet($uri, $params = array())
+    {
+        return self::rawRequest($uri, 'GET', array(), $params);
+    }
+
+
+    /**
+     * Function to execute a raw POST request
+     * 
+     * @param  string $uri       uri to hit (i.e. /users)
+     * @param  array  $params    POST parameters to send
+     * @param  array  $getParams Querystring parameters to send
+     * @param  array  $files     files to send (key = name, value = path)
+     * @return ActiveResourceRawResponse
+     */
+    public static function rawPost($uri, $params = array(), $getParams = array(), $files = array())
+    {
+        return self::rawRequest($uri, 'POST', $params, $getParams, $files);
+    }
+
+
+    /**
+     * Function to execute a raw PUT request
+     * 
+     * @param  string $uri       uri to hit (i.e. /users)
+     * @param  array  $params    PUT parameters to send
+     * @param  array  $getParams Querystring parameters to send
+     * @param  array  $files     files to send (key = name, value = path)
+     * @return ActiveResourceRawResponse
+     */
+    public static function rawPut($uri, $params = array(), $getParams = array(), $files = array())
+    {
+        return self::rawRequest($uri, 'PUT', $params, $getParams, $files);
+    }
+
+
+    /**
+     * Function to execute a raw PATCH request
+     * 
+     * @param  string $uri       uri to hit (i.e. /users)
+     * @param  array  $params    PATCH parameters to send
+     * @param  array  $getParams Querystring parameters to send
+     * @param  array  $files     files to send (key = name, value = path)
+     * @return ActiveResourceRawResponse
+     */
+    public static function rawPatch($uri, $params = array(), $getParams = array(), $files = array())
+    {
+        return self::rawRequest($uri, 'PATCH', $params, $getParams, $files);
+    }
+
+
+    /**
+     * Function to execute a raw DELETE request
+     * 
+     * @param  string $uri       uri to hit (i.e. /users)
+     * @param  array  $params    Querystring parameters to send
+     * @return ActiveResourceRawResponse
+     */
+    public static function rawDelete($uri, $params = array())
+    {
+        return self::rawRequest($uri, 'DELETE', array(), $params);
+    }
+
+
+    /**
+     * Function to execute a raw request on the base URI with the given uri path
+     * and params
+     * 
+     * @param  string $uri       uri to hit (i.e. /users)
+     * @param  string $method    Request method (GET, PUT, POST, PATCH, DELETE, etc.)
+     * @param  array  $params    PUT or POST parameters to send
+     * @param  array  $getParams Querystring parameters to send
+     * @param  array  $files     PUT or POST files to send (key = name, value = path)
+     * @return ActiveResourceRawResponse
+     */
+    protected static function rawRequest($uri, $method, $params = array(), $getParams = array(), $files = array())
+    {
+        $request = self::createRequest(static::$baseUri, $uri, $method);
+
+        //handle error saving & any errors given
+        $request->getEventDispatcher()->addListener(
+            'request.error',
+            function (\Guzzle\Common\Event $event) {
+
+                if ($event['response']->getStatusCode() == 422) {
+
+                    // Stop other events from firing
+                    $event->stopPropagation();
+
+                    //get the errors and set them
+                    $response = self::parseResponseStringToObject($event['response']->getBody(true));
+                    if (property_exists($response, 'errors')) {
+                        return new ActiveResourceRawResponse(false, $result, $response->errors);
+                    }
+                    return new ActiveResourceRawResponse(false, $result);
+                }
+            }
+        );
+
+        //set any params
+        foreach ($params as $key => $value) {
+            $request->setPostField($key, $value);
+        }
+
+        //add in any GET params
+        $query = $request->getQuery();
+        foreach ($getParams as $key => $val) {
+            $query->add($key, $val);
+        }
+
+        //set any files
+        foreach ($files as $key => $value) {
+            $request->addPostFile($key, $value);
+        }
+
+        //send the request
+        $response = self::sendRequest($request);
+
+        //handle clean response with errors
+        if ($response->getStatusCode() == 422) {
+            //get the errors and set them
+            $result = self::parseResponseStringToObject($response->getBody(true));
+            if (property_exists($result, 'errors')) {
+                return new ActiveResourceRawResponse(false, $result, $response->errors);
+            }
+            return new ActiveResourceRawResponse(false, $result);
+        }//end if
+
+
+        //get the response and inflate from that
+        $result = self::parseResponseToData($response);
+
+        return new ActiveResourceRawResponse(true, $result);
+    
+    }//end rawRequest
+
 }//end class
