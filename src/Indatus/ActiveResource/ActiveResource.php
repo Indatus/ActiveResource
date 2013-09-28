@@ -336,6 +336,21 @@ class ActiveResource
 
 
     /**
+     * Function to unset an attribute and return the previously
+     * set value
+     * 
+     * @param  string $attr name of attribute to unset
+     * @return mixed        value of attribute
+     */
+    public function purgeAttribute($attr)
+    {
+        $val = $this->properties[$attr];
+        unset($this->properties[$attr]);
+        return $val;
+    }
+
+
+    /**
      * Function to return an array of properties that should not
      * be set via mass assignment
      * 
