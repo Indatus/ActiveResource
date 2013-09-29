@@ -969,6 +969,22 @@ class ActiveResource
 
 
     /**
+     * This method just provides a convenient way for us to generate fresh model
+     * instances of this current model. It is particularly useful during the
+     * hydration of new objects.
+     * 
+     * @param  array  $attributes property key / values
+     * @return ActiveResource
+     */
+    public function newInstance($attributes = array())
+    {
+        $model = new static((array) $attributes);
+        
+        return $model;
+    }
+
+
+    /**
      * Function to handle creating or updating
      * an instance
      * 
@@ -1282,5 +1298,4 @@ class ActiveResource
         return new ActiveResourceRawResponse(true, $result);
     
     }//end rawRequest
-
 }//end class
