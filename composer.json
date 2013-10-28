@@ -21,7 +21,9 @@
     },
     "require-dev": {
         "phpdocumentor/phpdocumentor": "dev-develop",
-        "phpdocumentor/graphviz": "1.0.*@dev"
+        "phpdocumentor/graphviz": "1.0.*@dev",
+        "squizlabs/php_codesniffer": "*",
+        "fabpot/php-cs-fixer": "*"
     },
     "autoload": {
         "psr-0": {
