@@ -949,13 +949,18 @@ class ActiveResource
         //handle error saving
         $request->getEventDispatcher()->addListener(
             'request.error',
-            function (\Guzzle\Common\Event $event) {
-
+            //instance must be passed by reference since it's in a call back
+            function (\Guzzle\Common\Event $event) use (&$instance) {
                 if ($event['response']->getStatusCode() == 404) {
-
                     // Stop other events from firing
                     $event->stopPropagation();
 
+                    //not found
+                    $instance = false;
+                    
+                } else if($event['response']->getStatusCode() == 500) {
+
+                    $event->stopPropagation();
                     //not found
                     $instance = false;
                 }
@@ -971,7 +976,7 @@ class ActiveResource
 
         //send the request
         $response = self::sendRequest($request);
-
+        
         if ($response->getStatusCode() == 404 || $instance === false) {
             return null;
         }
