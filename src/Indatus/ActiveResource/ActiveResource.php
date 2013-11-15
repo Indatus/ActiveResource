@@ -61,7 +61,7 @@ class ActiveResource
      * 
      * @var string
      */
-    protected static $httpMethodParam = null;
+    public static $httpMethodParam = null;
 
     /**
      * Protocol + host of base URI to remote API
@@ -77,7 +77,7 @@ class ActiveResource
      * 
      * @var string
      */
-    protected static $resourceName;
+    public static $resourceName;
 
     /**
      * Property to overwrite the ActiveResource::getURI()
@@ -86,7 +86,7 @@ class ActiveResource
      * 
      * @var string
      */
-    protected static $uri;
+    public static $uri;
 
     /**
      * Property to hold the data about entities for which this
@@ -119,25 +119,25 @@ class ActiveResource
      * 
      * @var string
      */
-    protected static $authUser;
+    public static $authUser;
 
     /**
      * Password for remote API authentication if required
      * @var string
      */
-    protected static $authPass;
+    public static $authPass;
 
     /**
      * Transport method of data from remote API
      * @var string
      */
-    protected static $transporter = 'json';
+    public static $transporter = 'json';
 
     /**
      * Array of instance values 
      * @var array
      */
-    protected $properties = array();
+    public $properties = array();
 
     /**
      * Element name that should contain a collection in a 
@@ -145,7 +145,7 @@ class ActiveResource
      * 
      * @var string
      */
-    protected static $collectionKey = 'collection';
+    public static $collectionKey = 'collection';
 
     /**
      * Name of the parameter key used to contain search
@@ -153,7 +153,7 @@ class ActiveResource
      * 
      * @var string
      */
-    protected static $searchParameter = 'search';
+    public static $searchParameter = 'search';
 
     /**
      * Name of the parameter key used to identify 
@@ -239,14 +239,14 @@ class ActiveResource
      * 
      * @var string
      */
-    protected static $identityProperty = 'id';
+    public static $identityProperty = 'id';
 
     /**
      * Var to hold instance errors
      * 
      * @var array
      */
-    private $errors = array();
+    public $errors = array();
 
     /**
      * Comma separated list of properties that can't
@@ -254,7 +254,7 @@ class ActiveResource
      * 
      * @var string
      */
-    protected $guarded = "";
+    public $guarded = "";
 
     /**
      * Comma separated list of properties that will take
@@ -263,7 +263,7 @@ class ActiveResource
      * 
      * @var string
      */
-    protected static $fileFields = "";
+    public static $fileFields = "";
 
     /**
      * Comma separated list of properties that may be in 
@@ -272,7 +272,7 @@ class ActiveResource
      * 
      * @var string
      */
-    protected static $readOnlyFields = "";
+    public static $readOnlyFields = "";
 
     /**
      * Array of files that were temporarily written for a request
@@ -280,7 +280,7 @@ class ActiveResource
      * 
      * @var array
      */
-    protected $postRequestCleanUp = array();
+    public $postRequestCleanUp = array();
 
     /**
      * Filesystem location that temporary files could be
