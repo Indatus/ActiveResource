@@ -1,36 +1,36 @@
-<?php 
+<?php
 
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
  * LICENSE: The BSD 3-Clause
- * 
+ *
  * Copyright (c) 2013, Indatus
- * 
+ *
  * All rights reserved.
- * 
- * Redistribution and use in source and binary forms, with or without modification, 
+ *
+ * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
- * 
- * Redistributions of source code must retain the above copyright notice, this list 
+ *
+ * Redistributions of source code must retain the above copyright notice, this list
  * of conditions and the following disclaimer.
- * 
- * Redistributions in binary form must reproduce the above copyright notice, this list 
- * of conditions and the following disclaimer in the documentation and/or other 
+ *
+ * Redistributions in binary form must reproduce the above copyright notice, this list
+ * of conditions and the following disclaimer in the documentation and/or other
  * materials provided with the distribution.
- * 
- * Neither the name of Indatus nor the names of its contributors may be used 
- * to endorse or promote products derived from this software without specific prior 
+ *
+ * Neither the name of Indatus nor the names of its contributors may be used
+ * to endorse or promote products derived from this software without specific prior
  * written permission.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY 
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES 
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT 
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT 
- * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+ * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * @package     ActiveResource
@@ -58,7 +58,7 @@ class ActiveResource
      * Post parameter to set with a string that
      * contains the HTTP method type sent with a POST
      * request rather than sending the true method.
-     * 
+     *
      * @var string
      */
     public static $httpMethodParam = null;
@@ -66,7 +66,7 @@ class ActiveResource
     /**
      * Protocol + host of base URI to remote API
      * i.e. http://example.com
-     * 
+     *
      * @var string
      */
     public static $baseUri;
@@ -74,7 +74,7 @@ class ActiveResource
     /**
      * Property to overwrite the ActiveResource::getResourceName()
      * function with a static value
-     * 
+     *
      * @var string
      */
     public static $resourceName;
@@ -83,7 +83,7 @@ class ActiveResource
      * Property to overwrite the ActiveResource::getURI()
      * function with a static value of what remote API URI path
      * to hit
-     * 
+     *
      * @var string
      */
     public static $uri;
@@ -91,12 +91,12 @@ class ActiveResource
     /**
      * Property to hold the data about entities for which this
      * resource is nested beneath.  For example if this entity was
-     * 'Employee' which was a nested resource under a 'Company' and 
-     * the instance URI should be /companies/:company_id/employees/:id 
+     * 'Employee' which was a nested resource under a 'Company' and
+     * the instance URI should be /companies/:company_id/employees/:id
      * then you would assign this string with 'Company:company_id'.
      * Doing this will allow you to pass in ':company_id' as an option
      * to the URI creation functions and ':company_id' will be replaced
-     * with the value passed.  
+     * with the value passed.
      *
      * Alternativley you could set the value to something like 'Company:100'.
      * You could do this before a call like:
@@ -109,14 +109,14 @@ class ActiveResource
      * <code>
      * //this would hit /companies/100/employees/1
      * </code>
-     * 
+     *
      * @var string
      */
     public static $nestedUnder;
 
     /**
      * Username for remote API authentication if required
-     * 
+     *
      * @var string
      */
     public static $authUser;
@@ -134,15 +134,15 @@ class ActiveResource
     public static $transporter = 'json';
 
     /**
-     * Array of instance values 
+     * Array of instance values
      * @var array
      */
     public $properties = array();
 
     /**
-     * Element name that should contain a collection in a 
+     * Element name that should contain a collection in a
      * response where more than one result is returned
-     * 
+     *
      * @var string
      */
     public static $collectionKey = 'collection';
@@ -150,23 +150,23 @@ class ActiveResource
     /**
      * Name of the parameter key used to contain search
      * rules for fetching collections
-     * 
+     *
      * @var string
      */
     public static $searchParameter = 'search';
 
     /**
-     * Name of the parameter key used to identify 
+     * Name of the parameter key used to identify
      * an entity property
-     * 
+     *
      * @var string
      */
     public static $searchProperty = 'property';
 
     /**
-     * Name of the parameter key used to specify 
+     * Name of the parameter key used to specify
      * a search rule operator i.e.: = >= <= != LIKE
-     * 
+     *
      * @var string
      */
     public static $searchOperator = 'operator';
@@ -181,7 +181,7 @@ class ActiveResource
     /**
      * Name of the parameter key used to identify
      * how search criteria should be joined
-     * 
+     *
      * @var string
      */
     public static $logicalOperator = 'logical_operator';
@@ -189,7 +189,7 @@ class ActiveResource
     /**
      * Name of the parameter key used to identify
      * the property to order search results by
-     * 
+     *
      * @var string
      */
     public static $orderBy = 'order_by';
@@ -197,15 +197,15 @@ class ActiveResource
     /**
      * Name of the parameter key used to identify
      * the order direction of search results
-     * 
+     *
      * @var string
      */
     public static $orderDir = 'order_dir';
 
     /**
-     * Name of the parameter value for specifying 
+     * Name of the parameter value for specifying
      * "AND" search rule joining
-     * 
+     *
      * @var string
      */
     public static $searchOperatorAnd = 'AND';
@@ -213,7 +213,7 @@ class ActiveResource
     /**
      * Name of the parameter value for specifying
      * "OR" search rule joining
-     * 
+     *
      * @var string
      */
     public static $searchOperatorOr = 'OR';
@@ -221,29 +221,29 @@ class ActiveResource
     /**
      * Name of the parameter value for specifying
      * ascending result ordering
-     * 
+     *
      * @var string
      */
     public static $orderDirAsc = 'ASC';
 
     /**
-     * Name of the parameter value for specifying 
+     * Name of the parameter value for specifying
      * descending result ordering
-     * 
+     *
      * @var string
      */
     public static $orderDirDesc = 'DESC';
 
     /**
      * Resource's primary key property
-     * 
+     *
      * @var string
      */
     public static $identityProperty = 'id';
 
     /**
      * Var to hold instance errors
-     * 
+     *
      * @var array
      */
     public $errors = array();
@@ -251,7 +251,7 @@ class ActiveResource
     /**
      * Comma separated list of properties that can't
      * be set via mass assignment
-     * 
+     *
      * @var string
      */
     public $guarded = "";
@@ -260,16 +260,16 @@ class ActiveResource
      * Comma separated list of properties that will take
      * a file path that should be read in and sent
      * with any API request
-     * 
+     *
      * @var string
      */
     public static $fileFields = "";
 
     /**
-     * Comma separated list of properties that may be in 
+     * Comma separated list of properties that may be in
      * a GET request but should not be added to a create or
      * update request
-     * 
+     *
      * @var string
      */
     public static $readOnlyFields = "";
@@ -277,15 +277,15 @@ class ActiveResource
     /**
      * Array of files that were temporarily written for a request
      * that should be removed after the request is done.
-     * 
+     *
      * @var array
      */
     public $postRequestCleanUp = array();
 
     /**
      * Filesystem location that temporary files could be
-     * written to if needed 
-     * 
+     * written to if needed
+     *
      * @var string
      */
     public static $scratchDiskLocation = "/tmp";
@@ -296,7 +296,7 @@ class ActiveResource
     /**
      * Constructor used to popuplate the instance with
      * attribute values
-     * 
+     *
      * @param array $attributes Associative array of property names and values
      */
     public function __construct($attributes = array())
@@ -308,31 +308,29 @@ class ActiveResource
 
     /**
      * Magic getter function for accessing instance properties
-     * 
+     *
      * @param  string $key  Property name
-     * @return any          The value stored in the property 
+     * @return any          The value stored in the property
      */
     public function __get($key)
     {
         if ($key === 'attributes') {
-
             return $this->properties;
-
-        } else {
-
-            if (array_key_exists($key, $this->properties)) {
-                return $this->properties[$key];
-            }
-            return null; //catch all
         }
+
+        if (array_key_exists($key, $this->properties)) {
+            return $this->properties[$key];
+        }
+
+        return null;
     }
 
 
     /**
      * Magic setter function for setting instance properties
-     * 
+     *
      * @param   string    $property   Property name
-     * @param   any       $value      The value to store for the property 
+     * @param   any       $value      The value to store for the property
      * @return  void
      */
     public function __set($property, $value)
@@ -357,7 +355,7 @@ class ActiveResource
     /**
      * Function to update an Entitie's attributes without
      * saving.
-     * 
+     *
      * @param  array  $attrs key value array of attributes to update
      * @return void
      */
@@ -369,7 +367,7 @@ class ActiveResource
 
     /**
      * Function to return a key value array of the Entity's attributes
-     *         
+     *
      * @return array
      */
     public function attributes()
@@ -381,7 +379,7 @@ class ActiveResource
     /**
      * Function to unset an attribute and return the previously
      * set value
-     * 
+     *
      * @param  string $attr name of attribute to unset
      * @return mixed        value of attribute
      */
@@ -396,7 +394,7 @@ class ActiveResource
     /**
      * Function to return an array of properties that should not
      * be set via mass assignment
-     * 
+     *
      * @return array
      */
     protected function getGuardedAttributes()
@@ -415,7 +413,7 @@ class ActiveResource
     /**
      * Function to return an array of properties that will
      * accept a file path
-     * 
+     *
      * @return array
      */
     protected static function getFileFields()
@@ -426,9 +424,9 @@ class ActiveResource
 
 
     /**
-     * Function to inflate an instance's properties from an 
+     * Function to inflate an instance's properties from an
      * array of keys and values
-     * 
+     *
      * @param  array  $attributes   Associative array of properties and values
      * @return void
      */
@@ -438,35 +436,29 @@ class ActiveResource
 
         foreach ($attributes as $property => $value) {
             if (!in_array($property, $guarded)) {
-
-                
                 //if property contains '_base64'
                 if (!(stripos($property, '_base64') === false)) {
-
                     //if the property IS a file field
                     $fileProperty = str_replace('_base64', '', $property);
                     if (in_array($fileProperty, self::getFileFields())) {
                         $this->handleBase64File($fileProperty, $value);
                     }//end if file field
-
                 } else {
-
                     //handle as normal property, but file fields can't be mass assigned
                     if (!in_array($property, self::getFileFields())) {
                         $this->properties[$property] = $value;
                     }
                 }
-
             }//end if not guarded
         }//end foreach
     }//end inflateFromArray
 
 
     /**
-     * Function to take base64 encoded image and write it to a 
+     * Function to take base64 encoded image and write it to a
      * temp file, then add that file to the property list to get
      * added to a request.
-     * 
+     *
      * @param  string $property Entity attribute
      * @param  string $value    Base64 encoded string
      * @return void
@@ -487,13 +479,12 @@ class ActiveResource
 
         $this->postRequestCleanUp[] = $output_file;
         $this->{$property} = $output_file;
-
     }//end handleBase64File
 
 
     /**
      * Function to clean up any temp files written for a request
-     * 
+     *
      * @return void
      */
     protected function doPostRequestCleanUp()
@@ -509,23 +500,23 @@ class ActiveResource
 
     /**
      * Function to create a Guzzle HTTP request
-     * 
+     *
      * @param  string $baseUri        The protocol + host
      * @param  string $path           The URI path after the host
      * @param  string $http_method    The HTTP method to use for the request (GET, PUT, POST, DELTE etc.)
      * @param  array  $requestHeaders Any additional headers for the request
-     * @return  
+     * @return
      */
     protected static function createRequest($baseUri, $path, $http_method = 'GET', $requestHeaders = array())
     {
         $client = new Client($baseUri);
 
-        if (in_array(strtolower($http_method), array('get', 'put', 'post', 'patch', 'delete', 'head'))) {
-            $method = strtolower($http_method);
-            $method = $method == 'patch' ? 'put' : $method; //override patch calls with put
-        } else {
+        if (!in_array(strtolower($http_method), array('get', 'put', 'post', 'patch', 'delete', 'head'))) {
             throw new Exception("Invalid HTTP method");
         }
+
+        $method = strtolower($http_method);
+        $method = $method == 'patch' ? 'put' : $method; //override patch calls with put
 
         if (static::$httpMethodParam != null && in_array($method, array('put', 'post', 'patch', 'delete'))) {
             $request = $client->post($path);
@@ -552,22 +543,20 @@ class ActiveResource
     /**
      * Function to interpret the URI resource name based on the class called.
      * Generally this would be the name of the class.
-     * 
+     *
      * @return string   The sub name of the resource
      */
     private static function getResourceName()
     {
         if (isset(static::$resourceName)) {
-
             return static::$resourceName;
-
-        } else {
-
-            $full_class_arr = explode("\\", get_called_class());
-            $klass = end($full_class_arr);
-            static::$resourceName = $klass;
-            return $klass;
         }
+
+        $full_class_arr = explode("\\", get_called_class());
+        $klass = end($full_class_arr);
+        static::$resourceName = $klass;
+
+        return $klass;
     }
 
 
@@ -575,56 +564,52 @@ class ActiveResource
      * Function to return the name of the URI to hit based on
      * the interpreted name of the class in question.  For example
      * a Person class would resolve to /people
-     * 
+     *
      * @return string   The URI to hit
      */
     private static function getURI()
     {
         if (isset(static::$uri)) {
-
             return static::$uri;
+        }
 
-        } else {
-            $uri = Inflector::pluralize(
-                Inflector::tableize(
-                    self::getResourceName()
-                )
+        $uri = Inflector::pluralize(
+            Inflector::tableize(
+                self::getResourceName()
+            )
+        );
+
+        $uriResult = array();
+        if (!empty(static::$nestedUnder)) {
+            $nesting = array_map(
+                function ($item) {
+                    return explode(':', trim($item));
+                },
+                explode(',', static::$nestedUnder)
             );
 
-            $uriResult = array();
-            if (!empty(static::$nestedUnder)) {
 
-                $nesting = array_map(
-                    function ($item) {
-                        return explode(':', trim($item));
-                    },
-                    explode(',', static::$nestedUnder)
-                );
-
-
-                foreach ($nesting as $nest) {
-
-                    list($klass, $entityIdSegment) = $nest;
-                    if (!is_numeric($entityIdSegment)) {
-                        $entityIdSegment = ":$entityIdSegment";
-                    }
-
-                    $entityTypeSegment = Inflector::pluralize(Inflector::tableize($klass));
-                    $uriResult[] = $entityTypeSegment;
-                    $uriResult[] = $entityIdSegment;
-                
-                    $uri = implode("/", $uriResult) . "/$uri";
+            foreach ($nesting as $nest) {
+                list($klass, $entityIdSegment) = $nest;
+                if (!is_numeric($entityIdSegment)) {
+                    $entityIdSegment = ":$entityIdSegment";
                 }
-            }
 
-            return "/$uri";
+                $entityTypeSegment = Inflector::pluralize(Inflector::tableize($klass));
+                $uriResult[] = $entityTypeSegment;
+                $uriResult[] = $entityIdSegment;
+
+                $uri = implode("/", $uriResult) . "/$uri";
+            }
         }
+
+        return "/$uri";
     }
 
 
     /**
      * Function to get the URI with placeholders for data
-     * that a GET request should be made to in order to retreive 
+     * that a GET request should be made to in order to retreive
      * a collection of Entities
      *
      * @param  $options Array of options to replace placeholders with
@@ -636,13 +621,14 @@ class ActiveResource
         foreach ($options as $key => $value) {
             $uri = str_replace($key, $value, $uri);
         }
+
         return $uri;
     }
 
 
     /**
      * Function to get the URI with placeholders for data
-     * that a GET request should be made to in order to retreive 
+     * that a GET request should be made to in order to retreive
      * an instance of an Entity
      *
      * @param  $options Array of options to replace placeholders with
@@ -654,6 +640,7 @@ class ActiveResource
         foreach ($options as $key => $value) {
             $uri = str_replace($key, $value, $uri);
         }
+
         return $uri;
     }
 
@@ -720,14 +707,14 @@ class ActiveResource
                 $data = null;
                 break;
         }
-        
+
         return $data;
     }
 
 
     /**
      * Function to set the language of data transport.  I.e. XML, JSON etc
-     * 
+     *
      * @param Guzzle\Http\Message\RequestInterface $request Request to set type for
      */
     private static function setTransportLanguage(&$request)
@@ -745,9 +732,9 @@ class ActiveResource
 
 
     /**
-     * Function to take a response string (as a string) and depending on 
+     * Function to take a response string (as a string) and depending on
      * the type of string it is, parse it into an object.
-     * 
+     *
      * @param  string $responseStr Response string
      * @return object
      */
@@ -771,7 +758,7 @@ class ActiveResource
 
     /**
      * Function to wrap the making of a remote API request
-     * 
+     *
      * @param  Guzzle\Http\Message\RequestInterface $request API request object
      * @return Guzzle\Http\Message\Response          API Response
      */
@@ -780,9 +767,7 @@ class ActiveResource
         $request->getEventDispatcher()->addListener(
             'request.error',
             function (\Guzzle\Common\Event $event) {
-
                 if ($event['response']->getStatusCode() == 500) {
-
                     // Stop other events from firing
                     $event->stopPropagation();
 
@@ -794,16 +779,16 @@ class ActiveResource
                 }
             }
         );
-        return $response = $request->send();
 
+        return $response = $request->send();
     }
 
 
     /**
-     * Function to set the entities properties on the 
+     * Function to set the entities properties on the
      * request object taking into account any properties that
      * are read only etc.
-     * 
+     *
      * @param  Guzzle\Http\Message\RequestInterface $request API request object
      */
     protected function setPropertysOnRequest(&$request)
@@ -824,7 +809,7 @@ class ActiveResource
 
 
     /**
-     * Function to return a collection of remote API data that corresponds to 
+     * Function to return a collection of remote API data that corresponds to
      * the particular ActiveResource class referenced and also conforming to the
      * parameters passed in.
      *
@@ -832,8 +817,8 @@ class ActiveResource
      * $results = Company::findAll(
      *      array(
      *          array(
-     *              Company::$searchProperty => 'name', 
-     *              Company::$searchOperator => 'LIKE', 
+     *              Company::$searchProperty => 'name',
+     *              Company::$searchOperator => 'LIKE',
      *              Company::$searchValue    => 'Jacobs-Goodwin%'
      *          )
      *      ),
@@ -842,12 +827,12 @@ class ActiveResource
      *      Company::$orderDirAsc
      *  );
      * </code>
-     * 
+     *
      * @param  array  $findConditions  An array of arrays containing conditions regarding
      *                                 the filtering of the collection results.  Each array
-     *                                 Entry should be associative and contain keys for the 
+     *                                 Entry should be associative and contain keys for the
      *                                 property, operator and value to search by.
-     *                                 
+     *
      * @param  string $logicalOperator The operator for joining the filter conditions (AND | OR)
      * @param  string $orderBy         The property name results shoudl be ordered by
      * @param  string $orderDir        The direction for ordering results (ASC | DESC)
@@ -866,7 +851,6 @@ class ActiveResource
 
         //add in request params
         if (!empty($findConditions) || !empty($getParams)) {
-
             $query = $request->getQuery();
 
             foreach ($getParams as $param => $val) {
@@ -875,7 +859,6 @@ class ActiveResource
 
             $conditionCounter = 0;
             foreach ($findConditions as $condition) {
-
                 $query->add(
                     self::$searchParameter."[$conditionCounter][".self::$searchProperty."]",
                     $condition[self::$searchProperty]
@@ -904,9 +887,8 @@ class ActiveResource
             if ($orderDir != null) {
                 $query->add(self::$orderDir, $orderDir);
             }
-
         }//end if
-        
+
         //send the request
         $response = self::sendRequest($request);
 
@@ -931,7 +913,7 @@ class ActiveResource
 
     /**
      * Function to find an instance of an Entity record
-     * 
+     *
      * @param  int      $id          The primary identifier value for the record
      * @param  array    $getParams   Array of GET parameters to pass
      * @return ActiveResource        An instance of the entity requested
@@ -957,9 +939,7 @@ class ActiveResource
 
                     //not found
                     $instance = false;
-                    
                 } else if($event['response']->getStatusCode() == 500) {
-
                     $event->stopPropagation();
                     //not found
                     $instance = false;
@@ -976,7 +956,7 @@ class ActiveResource
 
         //send the request
         $response = self::sendRequest($request);
-        
+
         if ($response->getStatusCode() == 404 || $instance === false) {
             return null;
         }
@@ -984,7 +964,7 @@ class ActiveResource
         $data = self::parseResponseToData($response);
         $klass = self::getResourceName();
         $instance = new $klass($data);
-        
+
         return $instance;
     }
 
@@ -992,23 +972,23 @@ class ActiveResource
     /**
      * Function to get the instance ID, returns false if there
      * is not one
-     * 
+     *
      * @return instanceId | false
      */
     public function getId()
     {
         if (array_key_exists(self::$identityProperty, $this->properties)) {
             return $this->properties[self::$identityProperty];
-        } else {
-            return false;
         }
+
+        return false;
     }
 
 
     /**
      * Function to return any errors that
      * may have prevented a save
-     * 
+     *
      * @return array
      */
     public function errors()
@@ -1021,14 +1001,14 @@ class ActiveResource
      * This method just provides a convenient way for us to generate fresh model
      * instances of this current model. It is particularly useful during the
      * hydration of new objects.
-     * 
+     *
      * @param  array  $attributes property key / values
      * @return ActiveResource
      */
     public function newInstance($attributes = array())
     {
         $model = new static((array) $attributes);
-        
+
         return $model;
     }
 
@@ -1036,23 +1016,23 @@ class ActiveResource
     /**
      * Function to handle creating or updating
      * an instance
-     * 
+     *
      * @return Boolean  Success of the save operation
      */
     public function save()
     {
         if ($this->getId() === false) {
             return $this->create();
-        } else {
-            return $this->update();
         }
+
+        return $this->update();
     }
 
 
     /**
      * Function to handle the creation of a NEW entity
-     * 
-     * @return Boolean  Success of the create operation 
+     *
+     * @return Boolean  Success of the create operation
      */
     protected function create()
     {
@@ -1066,9 +1046,7 @@ class ActiveResource
         $request->getEventDispatcher()->addListener(
             'request.error',
             function (\Guzzle\Common\Event $event) {
-
                 if ($event['response']->getStatusCode() == 422) {
-
                     // Stop other events from firing
                     $event->stopPropagation();
 
@@ -1100,6 +1078,7 @@ class ActiveResource
                 $this->errors = $result->errors;
             }
             $this->doPostRequestCleanUp();
+
             return false;
         }//end if
 
@@ -1109,13 +1088,12 @@ class ActiveResource
 
         $this->doPostRequestCleanUp();
         return true;
-    
     }//end create
 
 
     /**
      * Function to handle updating an existing entity
-     * 
+     *
      * @return Boolean  Success of the update opeartion
      */
     protected function update()
@@ -1130,9 +1108,7 @@ class ActiveResource
         $request->getEventDispatcher()->addListener(
             'request.error',
             function (\Guzzle\Common\Event $event) {
-
                 if ($event['response']->getStatusCode() == 422) {
-
                     // Stop other events from firing
                     $event->stopPropagation();
 
@@ -1144,6 +1120,7 @@ class ActiveResource
 
                     //return false create save failed
                     $this->doPostRequestCleanUp();
+
                     return false;
                 }
             }
@@ -1163,6 +1140,7 @@ class ActiveResource
                 $this->errors = $result->errors;
             }
             $this->doPostRequestCleanUp();
+
             return false;
         }//end if
 
@@ -1173,14 +1151,14 @@ class ActiveResource
         $this->inflateFromArray($result);
 
         $this->doPostRequestCleanUp();
+
         return true;
-    
     }//end update
 
 
     /**
      * Function to delete an existing entity
-     * 
+     *
      * @return Boolean  Success of the delete operation
      */
     public function destroy()
@@ -1198,16 +1176,16 @@ class ActiveResource
 
         if ($response->getStatusCode() == 200) {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }//end destroy
 
 
 
     /**
      * Function to execute a raw GET request
-     * 
+     *
      * @param  string $uri       uri to hit (i.e. /users)
      * @param  array  $params    Querystring parameters to send
      * @return ActiveResourceRawResponse
@@ -1220,7 +1198,7 @@ class ActiveResource
 
     /**
      * Function to execute a raw POST request
-     * 
+     *
      * @param  string $uri       uri to hit (i.e. /users)
      * @param  array  $params    POST parameters to send
      * @param  array  $getParams Querystring parameters to send
@@ -1235,7 +1213,7 @@ class ActiveResource
 
     /**
      * Function to execute a raw PUT request
-     * 
+     *
      * @param  string $uri       uri to hit (i.e. /users)
      * @param  array  $params    PUT parameters to send
      * @param  array  $getParams Querystring parameters to send
@@ -1250,7 +1228,7 @@ class ActiveResource
 
     /**
      * Function to execute a raw PATCH request
-     * 
+     *
      * @param  string $uri       uri to hit (i.e. /users)
      * @param  array  $params    PATCH parameters to send
      * @param  array  $getParams Querystring parameters to send
@@ -1265,7 +1243,7 @@ class ActiveResource
 
     /**
      * Function to execute a raw DELETE request
-     * 
+     *
      * @param  string $uri       uri to hit (i.e. /users)
      * @param  array  $params    Querystring parameters to send
      * @return ActiveResourceRawResponse
@@ -1279,7 +1257,7 @@ class ActiveResource
     /**
      * Function to execute a raw request on the base URI with the given uri path
      * and params
-     * 
+     *
      * @param  string $uri       uri to hit (i.e. /users)
      * @param  string $method    Request method (GET, PUT, POST, PATCH, DELETE, etc.)
      * @param  array  $params    PUT or POST parameters to send
@@ -1295,9 +1273,7 @@ class ActiveResource
         $request->getEventDispatcher()->addListener(
             'request.error',
             function (\Guzzle\Common\Event $event) {
-
                 if ($event['response']->getStatusCode() == 422) {
-
                     // Stop other events from firing
                     $event->stopPropagation();
 
@@ -1306,6 +1282,7 @@ class ActiveResource
                     if (property_exists($response, 'errors')) {
                         return new ActiveResourceRawResponse(false, $result, $response->errors);
                     }
+
                     return new ActiveResourceRawResponse(false, $result);
                 }
             }
@@ -1337,6 +1314,7 @@ class ActiveResource
             if (property_exists($result, 'errors')) {
                 return new ActiveResourceRawResponse(false, $result, $response->errors);
             }
+
             return new ActiveResourceRawResponse(false, $result);
         }//end if
 
@@ -1345,6 +1323,6 @@ class ActiveResource
         $result = self::parseResponseToData($response);
 
         return new ActiveResourceRawResponse(true, $result);
-    
+
     }//end rawRequest
 }//end class
