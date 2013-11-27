@@ -1,8 +1,8 @@
 ## PHP ActiveResource Library
 
-This is a PHP library for accessing REST APIs in an ActiveResource style of coding.   The benifit is easier use of REST APIs in a fast and clean programming interface.
+This is a PHP library for accessing REST APIs in an ActiveResource style of coding.   The benefit is easier use of REST APIs in a fast and clean programming interface.
 
-The library follows convention over configuration so you should be able to get up to speed consuming a REST API in a very short time.  
+The library follows convention over configuration. So you should be able to get up to speed consuming a REST API in a very short time.  
 
 #### Installation
 
@@ -67,7 +67,7 @@ if ($p->save()) {
 }
 ````
 
-What all can you do, here's some basics?
+What all can you do? Here's some basics:
 
 ````
 //find by id
@@ -128,8 +128,8 @@ $collection = Product::findAll(
 
 Remember that the library uses convention over configuration, so if you want to override something you likely just need to set the protected property.
 
-For example on a Product the URI will be inflected to be /products.  Just like Person would be /people.  If you want to have something different you could do it 2 ways.  Say you wanted to make **Product** use /my_cool_products. You could do this by setting the protected static variable `$resourceName` to 'MyCoolProduct'.  Or you could just set the protected static variable `$uri` to be '/my_cool_products';
+For example, on a Product the URI will be inflected to be /products.  Just like Person would be /people.  If you want to have something different you could do it 2 ways.  Say you wanted to make **Product** use /my_cool_products. You could do this by setting the protected static variable `$resourceName` to 'MyCoolProduct'.  Or you could just set the protected static variable `$uri` to be '/my_cool_products';
 
 #### Documentation
 
-Please note that this readme is a work in progress, hopefully there can be more examples added as to the flexibility and things you can do with the library.  Until then please see the *doc** directory for generated documentation.
+Please note that this README is a work in progress, hopefully there can be more examples added as to the flexibility and things you can do with the library.  Until then please see the *doc** directory for generated documentation.
