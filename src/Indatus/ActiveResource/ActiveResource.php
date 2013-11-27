@@ -696,7 +696,7 @@ class ActiveResource
     private static function parseResponseToData($response)
     {
         // //convert response data into usable PHP array
-        switch (static::$transporter){
+        switch (static::$transporter) {
             case 'json':
                 $data = $response->json();
                 break;
@@ -719,7 +719,7 @@ class ActiveResource
      */
     private static function setTransportLanguage(&$request)
     {
-        switch (static::$transporter){
+        switch (static::$transporter) {
             case 'json':
                 $request->setHeader('Accept', 'application/json');
                 break;
@@ -742,7 +742,7 @@ class ActiveResource
     {
         $data = null;
 
-        switch (static::$transporter){
+        switch (static::$transporter) {
             case 'json':
                 $data = json_decode($responseStr);
                 break;
