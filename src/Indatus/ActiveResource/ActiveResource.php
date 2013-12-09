@@ -353,6 +353,20 @@ class ActiveResource
 
 
     /**
+     * Magic unsetter function for unsetting an instance property
+     * 
+     * @param string $property Property name
+     * @return void
+     */
+    public function __unset($property)
+    {
+        if (array_key_exists($property, $this->properties)) {
+            unset($this->properties[$property]);
+        }
+    }//end __unset
+
+
+    /**
      * Function to update an Entitie's attributes without
      * saving.
      *
