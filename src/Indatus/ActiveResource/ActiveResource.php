@@ -1294,10 +1294,10 @@ class ActiveResource
                     //get the errors and set them
                     $response = self::parseResponseStringToObject($event['response']->getBody(true));
                     if (property_exists($response, 'errors')) {
-                        return new ActiveResourceRawResponse(false, $result, $response->errors);
+                        return new ActiveResourceRawResponse(false, $response, $response->errors);
                     }
 
-                    return new ActiveResourceRawResponse(false, $result);
+                    return new ActiveResourceRawResponse(false, $response);
                 }
             }
         );
@@ -1326,7 +1326,7 @@ class ActiveResource
             //get the errors and set them
             $result = self::parseResponseStringToObject($response->getBody(true));
             if (property_exists($result, 'errors')) {
-                return new ActiveResourceRawResponse(false, $result, $response->errors);
+                return new ActiveResourceRawResponse(false, $result, $result->errors);
             }
 
             return new ActiveResourceRawResponse(false, $result);
