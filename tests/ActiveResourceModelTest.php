@@ -9,14 +9,12 @@ class ActiveResourceModelTest extends ActiveResourceTests
     public function testAppMake()
     {
         $ar = $this->app->make('active-resource');
-        $this->assertEquals($ar->testMeOut(), "hey, it worked");
+        $this->assertEquals($ar->attributes(), array());
     }
 
     public function testFacade()
     {
-        $array = array(1,2,3);
-        ActiveResource::$guarded = array(1,2,3);
-        $this->assertEquals(ActiveResource::$guarded, $array);
+        $this->assertEquals(ActiveResource::attributes(), array());
     }
 
     // public function testGetter(){}
