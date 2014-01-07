@@ -42,6 +42,7 @@
 namespace Indatus\ActiveResource\Facades;
  
 use Illuminate\Support\Facades\Facade;
+use Indatus\ActiveResource\ActiveResourceServiceProvider;
  
  /**
   * Facade class for interacting with the ActiveResource class
@@ -55,6 +56,13 @@ class ActiveResource extends Facade {
    *
    * @return string
    */
-  protected static function getFacadeAccessor() { return 'active-resource'; }
+  protected static function getFacadeAccessor()
+  {
+    if (!static::$app) {
+      static::$app = ActiveResourceServiceProvider::make();
+    }
+
+    return 'active-resource';
+  }
  
 }

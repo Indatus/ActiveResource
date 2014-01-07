@@ -13,17 +13,22 @@
             "role": "Developer"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/brianwebb01/filesystem"
+        }
+    ],
     "require": {
         "php": ">=5.3.0",
-        "illuminate/support": "4.0.x",
+        "illuminate/support": "~4",
+        "illuminate/config": "~4",
+        "illuminate/container": "~4",
         "guzzle/guzzle": "~3.7",
         "doctrine/inflector": "1.0.*@dev"
     },
     "require-dev": {
-        "phpdocumentor/phpdocumentor": "dev-develop",
-        "phpdocumentor/graphviz": "1.0.*@dev",
-        "squizlabs/php_codesniffer": "*",
-        "fabpot/php-cs-fixer": "*"
+        "mockery/mockery": "dev-master"
     },
     "autoload": {
         "psr-0": {

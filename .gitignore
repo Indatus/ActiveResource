@@ -1,4 +1,7 @@
 doc/*!.gitignore
+tests/coverage
+tests/meta
+doc/*!.gitignore
 /vendor
 composer.phar
 composer.lock

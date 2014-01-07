@@ -55,6 +55,20 @@ class ActiveResource
 {
 
     /**
+     * The IoC Container
+     *
+     * @var Container
+     */
+    protected $app;
+
+    /**
+     * The ActiveResource version
+     *
+     * @var string
+     */
+    const VERSION = '0.1.0';
+
+    /**
      * Post parameter to set with a string that
      * contains the HTTP method type sent with a POST
      * request rather than sending the true method.
@@ -304,6 +318,7 @@ class ActiveResource
         $this->inflateFromArray($attributes);
 
     }//end constructor
+
 
 
     /**

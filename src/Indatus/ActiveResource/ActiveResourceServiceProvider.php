@@ -41,6 +41,9 @@
 
 namespace Indatus\ActiveResource;
 
+use Illuminate\Config\FileLoader;
+use Illuminate\Config\Repository;
+use Illuminate\Container\Container;
 use Illuminate\Support\ServiceProvider;
 
  /**
@@ -52,20 +55,14 @@ class ActiveResourceServiceProvider extends ServiceProvider
 {
 
     /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected $defer = false;
-
-    /**
      * Bootstrap the application events.
      *
      * @return void
      */
     public function boot()
     {
-        $this->package('indatus/active-resource');
+        // Register classes
+        $this->app = static::make($this->app);
     }
 
     /**
@@ -75,11 +72,7 @@ class ActiveResourceServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app['active-resource'] = $this->app->share(
-            function ($app) {
-                return new ActiveResource;
-            }
-        );
+        // done with boot()
     }
 
     /**
@@ -91,4 +84,106 @@ class ActiveResourceServiceProvider extends ServiceProvider
     {
         return array('active-resource');
     }
+
+
+
+    ////////////////////////////////////////////////////////////////////
+    /////////////////////////// CLASS BINDINGS /////////////////////////
+    ////////////////////////////////////////////////////////////////////
+
+    public static function make($app = null)
+    {
+
+        if (!$app) {
+            $app = new Container;
+        }
+
+        $serviceProvider = new static($app);
+
+        // Bind classes
+        $app = $serviceProvider->bindCoreClasses($app);
+        $app = $serviceProvider->bindClasses($app);
+
+        return $app;
+    }
+
+
+    /**
+     * Bind the core classes
+     *
+     * @param  Container $app
+     *
+     * @return Container
+     */
+    public function bindCoreClasses(Container $app)
+    {
+        $app->bindIf('files', 'Illuminate\Filesystem\Filesystem');
+
+        $app->bindIf('config', function ($app) {
+
+            $fileloader = new FileLoader($app['files'], __DIR__.'/../../config');
+            return new Repository($fileloader, 'config');
+
+        }, true);
+
+        // Register factory and custom configurations
+        $app = $this->registerConfig($app);
+
+        return $app;
+    }
+
+
+
+    /**
+     * Bind the ActiveResource classes to the Container
+     *
+     * @param  Container $app
+     *
+     * @return Container
+     */
+    public function bindClasses(Container $app)
+    {
+        $app->bind('active-resource', function ($app) {
+                return new ActiveResource;
+        });
+
+        return $app;
+    }
+
+
+
+    ////////////////////////////////////////////////////////////////////
+    /////////////////////////////// HELPERS ////////////////////////////
+    ////////////////////////////////////////////////////////////////////
+
+    /**
+     * Register factory and custom configurations
+     *
+     * @param  Container $app
+     *
+     * @return Container
+     */
+    protected function registerConfig(Container $app)
+    {
+        // Register paths
+        if (!$app->bound('path.base')) {
+            $app['path.base'] = realpath(__DIR__.'/../../../../');
+        }
+
+        // Register config file
+        $app['config']->package('indatus/active-resource', __DIR__.'/../../config');
+
+        // Register custom config
+        $custom = $app['path.base'].'/active-resource.php';
+        if (file_exists($custom)) {
+            $app['config']->afterLoading('active-resource', function ($me, $group, $items) use ($custom) {
+                $custom = include $custom;
+                return array_replace_recursive($items, $custom);
+            });
+        }
+
+        return $app;
+    }
+
+
 }
