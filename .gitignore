@@ -1,4 +1,4 @@
-doc/*!.gitkeep
+doc/*!.gitignore
 /vendor
 composer.phar
 composer.lock
