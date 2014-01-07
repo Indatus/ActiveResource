@@ -80,14 +80,6 @@ class ActiveResourceServiceProvider extends ServiceProvider
                 return new ActiveResource;
             }
         );
-
-        $this->app->booting(
-            function () {
-                $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-                $loader->alias('ActiveResource', 'Indatus\ActiveResource\ActiveResource');
-            }
-        );
-
     }
 
     /**
