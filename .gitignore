@@ -1,3 +1,4 @@
+doc/*!.gitkeep
 /vendor
 composer.phar
 composer.lock
