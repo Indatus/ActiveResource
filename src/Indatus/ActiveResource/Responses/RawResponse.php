@@ -39,7 +39,7 @@
  * @license     http://opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause
  */
 
-namespace Indatus\ActiveResource;
+namespace Indatus\ActiveResource\Responses;
 
 /**
  * Result class returned from ActiveResource when
@@ -47,7 +47,7 @@ namespace Indatus\ActiveResource;
  *
  * @author Brian Webb <bwebb@indatus.com>
  */
-class ActiveResourceRawResponse
+class RawResponse
 {
     /**
      * Var to hold XML or JSON response converted

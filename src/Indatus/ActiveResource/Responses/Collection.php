@@ -39,7 +39,7 @@
  * @license     http://opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause
  */
 
-namespace Indatus\ActiveResource;
+namespace Indatus\ActiveResource\Responses;
 
 /**
  * Collection class returned from ActiveResource when
@@ -47,7 +47,7 @@ namespace Indatus\ActiveResource;
  *
  * @author Brian Webb <bwebb@indatus.com>
  */
-class ActiveResourceCollection implements \Iterator
+class Collection implements \Iterator
 {
     
     /**
@@ -83,7 +83,7 @@ class ActiveResourceCollection implements \Iterator
      *
      * @see  Iterator
      * 
-     * @return ActiveResource
+     * @return Indatus\ActiveResource\Model
      */
     public function rewind()
     {
@@ -96,7 +96,7 @@ class ActiveResourceCollection implements \Iterator
      *
      * @see  Iterator
      * 
-     * @return ActiveResource
+     * @return Indatus\ActiveResource\Model
      */
     public function current()
     {
@@ -109,7 +109,7 @@ class ActiveResourceCollection implements \Iterator
      *
      * @see  Iterator
      * 
-     * @return ActiveResource
+     * @return Indatus\ActiveResource\Model
      */
     public function key()
     {
@@ -122,7 +122,7 @@ class ActiveResourceCollection implements \Iterator
      *
      * @see  Iterator
      * 
-     * @return ActiveResource
+     * @return Indatus\ActiveResource\Model
      */
     public function next()
     {
@@ -135,7 +135,7 @@ class ActiveResourceCollection implements \Iterator
      *
      * @see  Iterator
      * 
-     * @return ActiveResource
+     * @return Indatus\ActiveResource\Model
      */
     public function valid()
     {
@@ -157,7 +157,7 @@ class ActiveResourceCollection implements \Iterator
     /**
      * Function to return the first item of the collection
      * 
-     * @return ActiveResource
+     * @return Indatus\ActiveResource\Model
      */
     public function first()
     {
@@ -168,7 +168,7 @@ class ActiveResourceCollection implements \Iterator
     /**
      * Function to return the last item of the collection
      * 
-     * @return ActiveResource
+     * @return Indatus\ActiveResource\Model
      */
     public function last()
     {

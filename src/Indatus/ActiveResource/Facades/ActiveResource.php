@@ -62,7 +62,7 @@ class ActiveResource extends Facade {
       static::$app = ActiveResourceServiceProvider::make();
     }
 
-    return 'active-resource';
+    return 'active-resource.model';
   }
  
 }

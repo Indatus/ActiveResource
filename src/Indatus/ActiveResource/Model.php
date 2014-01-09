@@ -43,6 +43,8 @@ namespace Indatus\ActiveResource;
 
 use Guzzle\Http\Client;
 use Doctrine\Common\Inflector\Inflector;
+use Indatus\ActiveResource\Responses\Collection;
+use Indatus\ActiveResource\Responses\RawResponse;
 
 /**
  * Base class for interacting with a remote API with an interface
@@ -51,7 +53,7 @@ use Doctrine\Common\Inflector\Inflector;
  *
  * @author Brian Webb <bwebb@indatus.com>
  */
-class ActiveResource
+class Model
 {
 
     /**
@@ -866,7 +868,7 @@ class ActiveResource
      * @param  string $orderBy         The property name results shoudl be ordered by
      * @param  string $orderDir        The direction for ordering results (ASC | DESC)
      * @param  array  $getParams       Array of additional querystrig / GET parameters
-     * @return \Indatus\ActiveResource\ActiveResourceCollection
+     * @return \Indatus\ActiveResource\Responses\Collection
      */
     public static function findAll(
         $findConditions = array(),
@@ -931,7 +933,7 @@ class ActiveResource
         }
 
         //create a collection object
-        $collection = new ActiveResourceCollection($records);
+        $collection = new Collection($records);
 
         //add in the meta data that also gets returned
         $collection->metaData = array_diff_key($data, array_flip((array) array(self::$collectionKey)));
@@ -1217,7 +1219,7 @@ class ActiveResource
      *
      * @param  string $uri       uri to hit (i.e. /users)
      * @param  array  $params    Querystring parameters to send
-     * @return ActiveResourceRawResponse
+     * @return Indatus\ActiveResource\Responses\RawResponse
      */
     public static function rawGet($uri, $params = array())
     {
@@ -1232,7 +1234,7 @@ class ActiveResource
      * @param  array  $params    POST parameters to send
      * @param  array  $getParams Querystring parameters to send
      * @param  array  $files     files to send (key = name, value = path)
-     * @return ActiveResourceRawResponse
+     * @return Indatus\ActiveResource\Responses\RawResponse
      */
     public static function rawPost($uri, $params = array(), $getParams = array(), $files = array())
     {
@@ -1247,7 +1249,7 @@ class ActiveResource
      * @param  array  $params    PUT parameters to send
      * @param  array  $getParams Querystring parameters to send
      * @param  array  $files     files to send (key = name, value = path)
-     * @return ActiveResourceRawResponse
+     * @return Indatus\ActiveResource\Responses\RawResponse
      */
     public static function rawPut($uri, $params = array(), $getParams = array(), $files = array())
     {
@@ -1262,7 +1264,7 @@ class ActiveResource
      * @param  array  $params    PATCH parameters to send
      * @param  array  $getParams Querystring parameters to send
      * @param  array  $files     files to send (key = name, value = path)
-     * @return ActiveResourceRawResponse
+     * @return Indatus\ActiveResource\Responses\RawResponse
      */
     public static function rawPatch($uri, $params = array(), $getParams = array(), $files = array())
     {
@@ -1275,7 +1277,7 @@ class ActiveResource
      *
      * @param  string $uri       uri to hit (i.e. /users)
      * @param  array  $params    Querystring parameters to send
-     * @return ActiveResourceRawResponse
+     * @return Indatus\ActiveResource\Responses\RawResponse
      */
     public static function rawDelete($uri, $params = array())
     {
@@ -1292,7 +1294,7 @@ class ActiveResource
      * @param  array  $params    PUT or POST parameters to send
      * @param  array  $getParams Querystring parameters to send
      * @param  array  $files     PUT or POST files to send (key = name, value = path)
-     * @return ActiveResourceRawResponse
+     * @return Indatus\ActiveResource\Responses\RawResponse
      */
     protected static function rawRequest($uri, $method, $params = array(), $getParams = array(), $files = array())
     {
@@ -1309,10 +1311,10 @@ class ActiveResource
                     //get the errors and set them
                     $response = self::parseResponseStringToObject($event['response']->getBody(true));
                     if (property_exists($response, 'errors')) {
-                        return new ActiveResourceRawResponse(false, $result, $response->errors);
+                        return new RawResponse(false, $result, $response->errors);
                     }
 
-                    return new ActiveResourceRawResponse(false, $result);
+                    return new RawResponse(false, $result);
                 }
             }
         );
@@ -1341,17 +1343,17 @@ class ActiveResource
             //get the errors and set them
             $result = self::parseResponseStringToObject($response->getBody(true));
             if (property_exists($result, 'errors')) {
-                return new ActiveResourceRawResponse(false, $result, $response->errors);
+                return new RawResponse(false, $result, $response->errors);
             }
 
-            return new ActiveResourceRawResponse(false, $result);
+            return new RawResponse(false, $result);
         }//end if
 
 
         //get the response and inflate from that
         $result = self::parseResponseToData($response);
 
-        return new ActiveResourceRawResponse(true, $result);
+        return new RawResponse(true, $result);
 
     }//end rawRequest
 }//end class

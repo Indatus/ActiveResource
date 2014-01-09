@@ -82,7 +82,7 @@ class ActiveResourceServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return array('active-resource');
+        return array('active-resource.model');
     }
 
 
@@ -143,8 +143,13 @@ class ActiveResourceServiceProvider extends ServiceProvider
      */
     public function bindClasses(Container $app)
     {
-        $app->bind('active-resource', function ($app) {
-                return new ActiveResource;
+
+        $app->singleton('active-resource.requests', function ($app) {
+            return new RequestManager($app);
+        });
+
+        $app->bind('active-resource.model', function ($app) {
+                return new Model;
         });
 
         return $app;

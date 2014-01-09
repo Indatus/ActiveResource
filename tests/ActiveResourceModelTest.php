@@ -8,7 +8,7 @@ class ActiveResourceModelTest extends ActiveResourceTests
 
     public function testAppMake()
     {
-        $ar = $this->app->make('active-resource');
+        $ar = $this->app->make('active-resource.model');
         $this->assertEquals($ar->attributes(), array());
     }
 
