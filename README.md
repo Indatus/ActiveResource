@@ -1,5 +1,7 @@
 ## PHP ActiveResource Library
 
+[![Build Status](https://travis-ci.org/Indatus/ActiveResource.png?branch=master)](https://travis-ci.org/Indatus/ActiveResource)
+
 This is a PHP library for accessing REST APIs in an ActiveResource style of coding. The benefit is easier use of REST APIs in a fast and clean programming interface.
 
 The library follows convention over configuration. So you should be able to get up to speed consuming a REST API in a very short time.
