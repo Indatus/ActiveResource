@@ -1,3 +1,6 @@
+tests/coverage/*
+tests/meta/*
+todo.html
 /vendor
 composer.phar
 composer.lock
