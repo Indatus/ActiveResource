@@ -17,11 +17,11 @@
         "php": ">=5.3.0",
         "illuminate/support": "4.x",
         "guzzle/guzzle": "~3.7",
-        "doctrine/inflector": "1.0.*@dev",
-        "mockery/mockery": "dev-master"
+        "doctrine/inflector": "1.0.*@dev"
     },
     "require-dev": {
         "phpdocumentor/phpdocumentor": "dev-develop",
+        "mockery/mockery": "dev-master",
         "phpdocumentor/graphviz": "1.0.*@dev",
         "squizlabs/php_codesniffer": "*",
         "fabpot/php-cs-fixer": "*"
