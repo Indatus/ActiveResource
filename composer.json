@@ -17,7 +17,8 @@
         "php": ">=5.3.0",
         "illuminate/support": "4.x",
         "guzzle/guzzle": "~3.7",
-        "doctrine/inflector": "1.0.*@dev"
+        "doctrine/inflector": "1.0.*@dev",
+        "mockery/mockery": "dev-master"
     },
     "require-dev": {
         "phpdocumentor/phpdocumentor": "dev-develop",
