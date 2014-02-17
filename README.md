@@ -1,3 +1,7 @@
+# Depricated
+
+This package has been officially depricated, please see [Trucker](https://github.com/Indatus/trucker) which is the replacement.
+
 ## PHP ActiveResource Library
 
 [![Build Status](https://travis-ci.org/Indatus/ActiveResource.png?branch=master)](https://travis-ci.org/Indatus/ActiveResource)
